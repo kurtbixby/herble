@@ -2,7 +2,7 @@
   "name": "herble",
   "version": "1.0.0",
   "description": "A daily plant guessing game",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +23,6 @@
     "express-handlebars": "^6.0.6",
     "passport": "^0.6.0",
     "sequelize": "^6.21.3"
-  }
+  },
+  "type": "module"
 }
