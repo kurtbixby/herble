@@ -25,12 +25,12 @@ UserStats.init(
         },
         gamesPlayed: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             defaultValue: 0
         },
         gamesSolved: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             defaultValue: 0
         },
         lastCompleted: {
