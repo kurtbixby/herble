@@ -2,6 +2,7 @@ export { router };
 
 import express from 'express';
 import { User, UserStats } from '../../models/index.js';
+import { Plant } from '../../models/Plant.js';
 
 const router = express.Router();
 
@@ -13,9 +14,12 @@ const router = express.Router();
 // }
 router.get('/herble/:num', async (req, res) => {
     try {
-        
+      const picture = await picture.findOne({
+        include: [{ model: Plant }], 
+      });
+        res.status(200).json(picture);
     } catch (err) {
-        
+      res.status(500).json(err);
     }
 });
 
