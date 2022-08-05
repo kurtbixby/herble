@@ -7,5 +7,5 @@ import { router as webRoutes } from './webRoutes.js';
 
 const router = express.Router();
 
-router.use('/auth', apiRouter);
+router.use('/api', apiRouter);
 router.use('/', webRoutes);
