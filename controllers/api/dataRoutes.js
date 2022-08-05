@@ -26,16 +26,23 @@ router.get('/herble/:num', async (req, res) => {
 // Handles success/failure
 // Calculate and updates streak in the sql db
 // INPUT
-// {
-//     uuid: uuid,
+
 //     number: number,
 //     success: bool,
 // }
+// Not sure if this code works, but looks ok!
 router.post('/herble', async (req, res) => {
     try {
-        
+      const gameData = await Game.create(req.body);
+      
+      req.session.save(() => {
+        req.session.game_number = gameData.id;
+        req.session.chosenAnswer = gameData.chosenAnswer;
+        req.session.success = gameData.success;
+      }
+      )
     } catch (err) {
-        
+      res.status(400).json(err);
     }
 });
 
