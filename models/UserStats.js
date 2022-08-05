@@ -23,6 +23,16 @@ UserStats.init(
             allowNull: false,
             defaultValue: 0
         },
+        gamesPlayed: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0
+        },
+        gamesSolved: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0
+        },
         lastCompleted: {
             type: DataTypes.INTEGER,
             allowNull: true,
