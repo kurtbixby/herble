@@ -7,3 +7,6 @@ Express Handlebars for creating our views
 Sequelize for interacting with our DB
 Passport for authentication
 dotenv for managing environment variables
+bcrypt for hashing passwords
+express-session for managing
+mysql2 for handling the db
