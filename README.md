@@ -10,3 +10,9 @@ dotenv for managing environment variables
 bcrypt for hashing passwords
 express-session for managing
 mysql2 for handling the db
+
+https://freefrontend.com/css-login-forms/
+
+https://unsplash.com/photos/7zBxQSNAJ1w
+
+https://unsplash.com/photos/5OZgVj0YVwQ
