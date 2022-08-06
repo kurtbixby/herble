@@ -2,6 +2,7 @@ export { router };
 
 import express from 'express';
 import { User, UserStats } from '../../models/index.js';
+import { Plant } from '../../models/Plant.js';
 
 const router = express.Router();
 
@@ -13,25 +14,38 @@ const router = express.Router();
 // }
 router.get('/herble/:num', async (req, res) => {
     try {
+      const picture = await Plant.findOne({
+        where: {
+          id: req.params.num
+        }
         
+      });
+        res.status(200).json(picture);
     } catch (err) {
-        
+      res.status(500).json(err);
     }
 });
 
 // Handles success/failure
 // Calculate and updates streak in the sql db
 // INPUT
-// {
-//     uuid: uuid,
+
 //     number: number,
 //     success: bool,
 // }
+// Not sure if this code works, but looks ok!
 router.post('/herble', async (req, res) => {
     try {
-        
+      const gameData = await Game.create(req.body);
+      
+      req.session.save(() => {
+        req.session.game_number = gameData.number;
+        req.session.chosenAnswer = gameData.chosenAnswer;
+        req.session.success = gameData.success;
+      }
+      )
     } catch (err) {
-        
+      res.status(400).json(err);
     }
 });
 
@@ -39,11 +53,12 @@ router.post('/herble', async (req, res) => {
 // Stores in another data store
 // INPUT
 // {
-//     uuid: uuid,
+//  
 //     number: number,
 //     guessNum: number,
 //     guess: string,
 // }
+// UPDATE USER STATS MODEL
 router.post('/herble/data', async (req, res) => {
     try {
         
