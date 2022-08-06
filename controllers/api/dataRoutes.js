@@ -14,8 +14,11 @@ const router = express.Router();
 // }
 router.get('/herble/:num', async (req, res) => {
     try {
-      const picture = await picture.findOne({
-        include: [{ model: Plant }], 
+      const picture = await Plant.findOne({
+        where: {
+          id: req.params.num
+        }
+        
       });
         res.status(200).json(picture);
     } catch (err) {
@@ -36,7 +39,7 @@ router.post('/herble', async (req, res) => {
       const gameData = await Game.create(req.body);
       
       req.session.save(() => {
-        req.session.game_number = gameData.id;
+        req.session.game_number = gameData.number;
         req.session.chosenAnswer = gameData.chosenAnswer;
         req.session.success = gameData.success;
       }
@@ -50,11 +53,12 @@ router.post('/herble', async (req, res) => {
 // Stores in another data store
 // INPUT
 // {
-//     uuid: uuid,
+//  
 //     number: number,
 //     guessNum: number,
 //     guess: string,
 // }
+// UPDATE USER STATS MODEL
 router.post('/herble/data', async (req, res) => {
     try {
         

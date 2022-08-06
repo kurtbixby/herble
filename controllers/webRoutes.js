@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        
+        res.render('main')
     } catch (err) {
         
     }
