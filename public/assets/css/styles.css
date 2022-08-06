@@ -550,3 +550,22 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+
+
+.img2{
+  border: 2px;
+  margin: 0%;
+  padding: 0%;
+}
+
+.imgswap{
+  display: flex;
+  justify-content: center;
+}
+
+.searchbox{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+

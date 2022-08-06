@@ -2,13 +2,14 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  content: 
-  //["./src/*.{html}"],
-  ['./public/*.html'],
-
+  content: [
+  './public/*.html',
+  './node_modules/flowbite/**/*.js'
+],
   theme: {
-    
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
