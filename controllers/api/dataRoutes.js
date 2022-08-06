@@ -29,13 +29,18 @@ router.get('/herble/:num', async (req, res) => {
 // Handles success/failure
 // Calculate and updates streak in the sql db
 // INPUT
+<<<<<<< HEAD
 
+=======
+// {
+>>>>>>> 598c4e3 (Calculates streaks)
 //     number: number,
 //     success: bool,
 // }
 // Not sure if this code works, but looks ok!
 router.post('/herble', async (req, res) => {
     try {
+<<<<<<< HEAD
       const gameData = await Game.create(req.body);
       
       req.session.save(() => {
@@ -46,6 +51,47 @@ router.post('/herble', async (req, res) => {
       )
     } catch (err) {
       res.status(400).json(err);
+=======
+        const stats = await UserStats.findOne({
+            // The following line is the line we probably want in the final version
+            // where: { userId: req.session.user_id }
+
+            // This is just for testing purposes
+            where: { userId: req.body.id }
+        });
+
+        if (!stats) {
+            res.status(400).json({ message: 'No user found with this id'});
+            return;
+        }
+
+        stats.gamesPlayed++;
+        if (req.body.success) {
+            stats.gamesSolved++;
+            // If none have been solved before
+            if (!stats.lastSolved) {
+                stats.lastSolved = req.body.number;
+                stats.streak = 1;
+            } else {
+                // If the number just solved is one after the previously solved
+                if (req.body.number == stats.lastSolved + 1) {
+                    stats.streak++;
+                } else {
+                    stats.streak = 0;
+                }
+                stats.lastSolved = req.body.number;
+            }
+            stats.highestStreak = Math.max(stats.streak, stats.highestStreak);
+        } else {
+            stats.streak = 0;
+        }
+
+        await stats.save();
+        res.status(200).json(stats);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+>>>>>>> 598c4e3 (Calculates streaks)
     }
 });
 
@@ -53,7 +99,10 @@ router.post('/herble', async (req, res) => {
 // Stores in another data store
 // INPUT
 // {
+<<<<<<< HEAD
 //  
+=======
+>>>>>>> 598c4e3 (Calculates streaks)
 //     number: number,
 //     guessNum: number,
 //     guess: string,
@@ -115,7 +164,9 @@ router.get('/users/:id', async (req, res) => {
             },
             include: {
                 model: UserStats,
-                attributes: ['streak', 'highestStreak', 'lastCompleted']
+                attributes: {
+                    exclude: ['id', 'userId']
+                }
             }
         });
 
