@@ -562,10 +562,3 @@ video {
   display: flex;
   justify-content: center;
 }
-
-.searchbox{
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
