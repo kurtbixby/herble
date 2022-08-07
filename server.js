@@ -6,8 +6,11 @@ import exphbs from 'express-handlebars';
 import { helpers } from './public/assets/js/helpers.js';
 
 
+
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+app.use(express.static('public'));
 
 
 
