@@ -33,13 +33,17 @@ router.get('/herble/:num', async (req, res) => {
 
 =======
 // {
+<<<<<<< HEAD
 >>>>>>> 598c4e3 (Calculates streaks)
+=======
+>>>>>>> 598c4e350cbb468d5a0f70eabaae6b213bd89eb8
 //     number: number,
 //     success: bool,
 // }
 // Not sure if this code works, but looks ok!
 router.post('/herble', async (req, res) => {
     try {
+<<<<<<< HEAD
 <<<<<<< HEAD
       const gameData = await Game.create(req.body);
       
@@ -92,6 +96,47 @@ router.post('/herble', async (req, res) => {
         console.error(err);
         res.status(500).json(err);
 >>>>>>> 598c4e3 (Calculates streaks)
+=======
+        const stats = await UserStats.findOne({
+            // The following line is the line we probably want in the final version
+            // where: { userId: req.session.user_id }
+
+            // This is just for testing purposes
+            where: { userId: req.body.id }
+        });
+
+        if (!stats) {
+            res.status(400).json({ message: 'No user found with this id'});
+            return;
+        }
+
+        stats.gamesPlayed++;
+        if (req.body.success) {
+            stats.gamesSolved++;
+            // If none have been solved before
+            if (!stats.lastSolved) {
+                stats.lastSolved = req.body.number;
+                stats.streak = 1;
+            } else {
+                // If the number just solved is one after the previously solved
+                if (req.body.number == stats.lastSolved + 1) {
+                    stats.streak++;
+                } else {
+                    stats.streak = 0;
+                }
+                stats.lastSolved = req.body.number;
+            }
+            stats.highestStreak = Math.max(stats.streak, stats.highestStreak);
+        } else {
+            stats.streak = 0;
+        }
+
+        await stats.save();
+        res.status(200).json(stats);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+>>>>>>> 598c4e350cbb468d5a0f70eabaae6b213bd89eb8
     }
 });
 
@@ -100,9 +145,12 @@ router.post('/herble', async (req, res) => {
 // INPUT
 // {
 <<<<<<< HEAD
+<<<<<<< HEAD
 //  
 =======
 >>>>>>> 598c4e3 (Calculates streaks)
+=======
+>>>>>>> 598c4e350cbb468d5a0f70eabaae6b213bd89eb8
 //     number: number,
 //     guessNum: number,
 //     guess: string,
