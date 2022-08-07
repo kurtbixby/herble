@@ -33,10 +33,10 @@ UserStats.init(
             allowNull: false,
             defaultValue: 0
         },
-        lastCompleted: {
+        lastSolved: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            defaultValue: 0
+            defaultValue: null
         }
     },
     {
