@@ -36,7 +36,7 @@ UserStats.init(
         lastSolved: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            defaultValue: 0
+            defaultValue: null
         }
     },
     {
