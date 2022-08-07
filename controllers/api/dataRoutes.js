@@ -1,7 +1,7 @@
 export { router };
 
 import express from 'express';
-import { User, UserStats } from '../../models/index.js';
+import { Guess, Herble, User, UserStats } from '../../models/index.js';
 import { Plant } from '../../models/Plant.js';
 
 const router = express.Router();
@@ -33,7 +33,6 @@ router.get('/herble/:num', async (req, res) => {
 //     number: number,
 //     success: bool,
 // }
-// Not sure if this code works, but looks ok!
 router.post('/herble', async (req, res) => {
     try {
         const stats = await UserStats.findOne({
@@ -82,16 +81,38 @@ router.post('/herble', async (req, res) => {
 // Stores in another data store
 // INPUT
 // {
-//     number: number,
+//     herbleNum: number,
 //     guessNum: number,
 //     guess: string,
 // }
 // UPDATE USER STATS MODEL
 router.post('/herble/data', async (req, res) => {
     try {
-        
+        if (!req.session.loggedIn) {
+            res.status(401).json({ message: 'Unauthorized' });
+            return;
+        }
+
+        const user = await User.findByPk(req.sessionID.user_id);
+
+        if (!user) {
+            res.status(400).json({ message: 'No user found with this id'});
+        }
+
+        const herble = await Herble.findOne({ where: { number: req.params.herbleNum } });
+
+        if (!herble) {
+            res.status(400).json({ message: 'No herble found with this number'});
+        }
+
+        const guess = await Guess.create({ guessNumber: req.params.guessNum, guess: req.params.guess })
+        guess.setUser(user);
+        guess.setHerble(herble);
+
+        res.status(200);
     } catch (err) {
-        
+        console.error(err);
+        res.status(500).json(err);
     }
 });
 
@@ -106,13 +127,13 @@ router.post('/users', async (req, res) => {
     try {
         const userData = await User.create(req.body);
         // not sure if this code works
-        const stats = await UserStats.create({ streak: 0, highestStreak: 0, lastCompleted: null });
+        const stats = await UserStats.create({ streak: 0, highestStreak: 0, gamesPlayed: 0, gamesSolved: 0, lastSolved: null });
         userData.setUserStats(stats);
 
         res.status(200).json(userData);
     } catch (err) {
         console.error(err);
-        res.status(400).json(err);
+        res.status(500).json(err);
     }
 });
 
