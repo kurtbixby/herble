@@ -54,7 +54,7 @@ router.post('/herble', async (req, res) => {
 // INPUT
 // {
 //  
-//     number: number,
+//     number: number of the herble. day one is number one
 //     guessNum: number,
 //     guess: string,
 // }
