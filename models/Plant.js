@@ -5,7 +5,6 @@ import { sequelize } from '../config/connection.js';
 
 class Plant extends Model {};
 
-
 Plant.init(
     {
       id: {
@@ -16,7 +15,8 @@ Plant.init(
       },
       url: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: null,
       },
       commonName: {
         type: DataTypes.STRING, 

@@ -1,6 +1,7 @@
 export { router };
 
 import express from 'express';
+import { STRING } from 'sequelize';
 import { Guess, Herble, User, UserStats } from '../../models/index.js';
 import { Plant } from '../../models/Plant.js';
 
@@ -176,6 +177,27 @@ router.get('/users/:id', async (req, res) => {
         }
 
         res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// [
+//     {
+//         common_name: STRING,
+//         scientific_name: STRING
+//     },
+//     ...
+// ]
+router.get('/plants', async (req, res) => {
+    try {
+        const plants = await Plant.findAll({
+            where: {
+                url: null
+            }
+        });
+
+        return res.status(200).json(plants);
     } catch (err) {
         res.status(500).json(err);
     }
