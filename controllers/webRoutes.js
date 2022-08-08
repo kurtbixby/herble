@@ -32,9 +32,7 @@ router.get('/logout', async (req, res) => {
 
 router.get('/users/:signup', async (req, res) => {
     try {
-        
     } catch (err) {
       res.status(500).json(err); 
     }
 });
-
