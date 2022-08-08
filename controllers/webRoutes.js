@@ -1,5 +1,4 @@
 export { router };
-import { User } from 'models';
 
 import express from 'express';
 
@@ -7,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        res.render('main')
+        res.render()
     } catch (err) {
       res.status(500).json(err);
     }
@@ -33,20 +32,7 @@ router.get('/logout', async (req, res) => {
 
 router.get('/users/:signup', async (req, res) => {
     try {
-        const userSignUp = await User.findByPk(req.params.id, {
-          include: [
-            {
-              model: User,
-              attributes: [
-                'id',
-                'username',
-                'email',
-                'password'
-
-              ],
-            },
-          ],
-        })
+        
     } catch (err) {
       res.status(500).json(err); 
     }
