@@ -18,6 +18,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: 10%;
 }
 
 .section-title {
@@ -30,6 +31,7 @@ body {
 	display: flex;
 	align-items: flex-start;
 	margin-top: 30px;
+	background-color: ;
 }
 
 .form-wrapper {
@@ -83,7 +85,7 @@ body {
 }
 
 .form-wrapper.is-active .switcher-signup {
-	color: #fff;
+	color: #323639;
 	transform: translateX(-90px);
 }
 
@@ -126,7 +128,7 @@ body {
 	min-width: 260px;
 	margin-top: 50px;
 	padding: 30px 25px;
-  border-radius: 5px;
+  	border-radius: 5px;
 	transform-origin: top;
 }
 
@@ -190,14 +192,14 @@ body {
 
 @keyframes hideSignup {
 	0% {
-		background-color: #fff;
+		background-color: rgba(9, 71, 31, 0.846);
 		transform: translate(-35%, -20px) scaleY(1);
 	}
 	50% {
 		transform: translate(0, 0) scaleY(.8);
 	}
 	100% {
-		background: #d7e7f1;
+		background: rgba(9, 71, 31, 0.846);
 		transform: translate(-40%, 10px) scaleY(.8);
 	}
 }
@@ -239,7 +241,7 @@ body {
 
 .input-block label {
 	font-size: 14px;
-  color: #a1b4b4;
+  color: #323639;
 }
 
 .input-block input {
@@ -251,7 +253,7 @@ body {
 	font-size: 16px;
 	line-height: 40px;
 	color: #3b4465;
-  background: #eef9fe;
+  background: #eefef6;
   border: 1px solid #cddbef;
   border-radius: 2px;
 }
@@ -275,14 +277,14 @@ body {
 }
 
 .btn-login {
-	color: #fbfdff;
-	background: #a7e245;
+	color: #ffffff;
+	background: rgba(9, 71, 31, 0.846);
 	transform: translateX(-30%);
 }
 
 .btn-signup {
-	color: #a7e245;
+	color: #323639;
 	background: #fbfdff;
-	box-shadow: inset 0 0 0 2px #a7e245;
+	box-shadow: inset 0 0 0 2px rgba(9, 71, 31, 0.846);
 	transform: translateX(30%);
 }
