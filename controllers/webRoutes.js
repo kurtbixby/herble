@@ -16,16 +16,19 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/login', async (req, res) => {
-  if(req.session.loggedIn){  
+  // if(req.session.loggedIn) {
+  //   // redirect?
+  //   return;
+  // }
   try {
-        res.render('login')
+      res.render('signin')
     } catch (err) {
       res.status(500).json(err); 
     }
-}});
+});
 // IM NOT SURE WHAT TO DO HERE
 router.get('/logout', async (req, res) => {
-  if(req.session.loggedOut){  
+  if(req.session.loggedOut){ 
   try {
         res.render()
     } catch (err) {
