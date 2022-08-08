@@ -1,7 +1,6 @@
 export { router };
 
 import express from 'express';
-import { STRING } from 'sequelize';
 import { Guess, Herble, User, UserStats } from '../../models/index.js';
 import { Plant } from '../../models/Plant.js';
 
