@@ -9,7 +9,7 @@ const API_PORT = process.env.PORT || 3001;
 
 router.get('/', async (req, res) => {
     try {
-        res.render('gamePage')
+      res.render('gamePage')
     } catch (err) {
       res.status(500).json(err);
     }
