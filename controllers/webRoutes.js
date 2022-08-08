@@ -1,5 +1,5 @@
 export { router };
-import { User } from 'models';
+import { User } from '../models/User.js';
 
 import express from 'express';
 
@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        res.render('main')
+        res.render('/layouts.main')
     } catch (err) {
       res.status(500).json(err);
     }
@@ -52,3 +52,11 @@ router.get('/users/:signup', async (req, res) => {
     }
 });
 
+// router.get('/plants')
+// include two paramters for the file and for handlebars
+router.get('/plants', async (req, res) => {
+  try {
+    const plantsData = []; 
+res.render('plants', {plants: plantsData})
+  }
+})
