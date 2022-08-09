@@ -23,7 +23,7 @@ const plantData = [
         id: '',
         common_name: 'panda plant',
         scientific_name: 'kalanchoe tomentosa',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/pandaPlantFinal/', 
       },
       {
         id: '',
@@ -35,7 +35,7 @@ const plantData = [
         id: '',
         common_name: 'zebra cactus',
         scientific_name: 'haworthiopsis attenuata',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/zebraPlantFinal/', 
       },
       {
         id: '',
@@ -53,13 +53,13 @@ const plantData = [
         id: '',
         common_name: "elephants's foot plant",
         scientific_name: 'dioscorea elephantipes',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/elephantsFootFinal/', 
       },
       {
         id: '',
         common_name: 'hoya hindu rope',
         scientific_name: 'carnosa compacta',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/hoyaHinduRopeFinal/', 
       },
       {
         id: '',
@@ -89,7 +89,7 @@ const plantData = [
         id: '',
         common_name: 'fishbone cactus',
         scientific_name: 'epiphyllum anguliger',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/fishboneCactusFinal/', 
       },
       {
         id: '',
@@ -105,9 +105,21 @@ const plantData = [
       },
       {
         id: '',
+        common_name: 'rubber tree',
+        scientific_name: 'ficus elastica',
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rubberTreeFinal/', 
+      },
+      {
+        id: '',
         common_name: 'old lady cactus',
         scientific_name: 'mammillaria hahniana',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/oldLadyCactusFinal/', 
+      },
+      {
+        id: '',
+        common_name: 'umbrella tree',
+        scientific_name: 'schefflera arboricola',
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/umbrellaTreeFinal/', 
       },
       {
         id: '',
@@ -131,7 +143,7 @@ const plantData = [
         id: '',
         common_name: 'gardenia',
         scientific_name: 'gardenia jasminoides',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/gardeniaFinal/', 
       },
       {
         id: '',
@@ -149,19 +161,19 @@ const plantData = [
         id: '',
         common_name: 'rio,rock trumpet',
         scientific_name: 'diplandenia,mandevilla',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rioFinal/', 
       },
       {
         id: '',
         common_name: "widow's thrill",
         scientific_name: 'kalanchoe',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/widowsThrillFinal/', 
       },
       {
         id: '',
-        common_name: 'begonia',
-        scientific_name: '',
-        url: '', 
+        common_name: 'wax begonia',
+        scientific_name: 'begonia x semperflorens-cultorum',
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/waxBegoniaFinal/', 
       },
       {
         id: '',
@@ -174,6 +186,12 @@ const plantData = [
         common_name: 'lotus,indian lotus,sacred lotus',
         scientific_name: 'nelumbo nucifera',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/lotusFinal/', 
+      },
+      {
+        id: '',
+        common_name: 'african milk tree',
+        scientific_name: 'euphorbia trigona ',
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/africanMilkTreeFinal/', 
       },
       {
         id: '',
@@ -197,7 +215,7 @@ const plantData = [
         id: '',
         common_name: 'lucky bamboo',
         scientific_name: 'dracaena sanderiana',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/luckyBambooFinal/', 
       },
       {
         id: '',
@@ -209,19 +227,19 @@ const plantData = [
         id: '',
         common_name: 'ponytail palm',
         scientific_name: 'beaucarnea recurvata',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/ponytailPalmFinal/', 
       },
       {
         id: '',
         common_name: 'pothos',
         scientific_name: 'epipremnum aureum',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/pothosFinal/', 
       },
       {
         id: '',
         common_name: 'bromeliad',
         scientific_name: 'bromeliaceae',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/bromeliadFinal/', 
       },
       {
         id: '',
@@ -233,7 +251,7 @@ const plantData = [
         id: '',
         common_name: 'english ivy',
         scientific_name: 'hedera helix',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/englishIvyFinal/', 
       },
       {
         id: '',
@@ -251,25 +269,25 @@ const plantData = [
         id: '',
         common_name: 'money tree',
         scientific_name: 'pachira aquatica',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/moneyTreeFinal/', 
       },
       {
         id: '',
         common_name: 'chinese money plant',
         scientific_name: 'pilea peperomioides',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/chineseMoneyFinal/', 
       },
       {
         id: '',
         common_name: 'madagascar palm',
         scientific_name: 'pachypodium lamerei',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/madagascarPalmFinal/', 
       },
       {
         id: '',
         common_name: 'staghorn ferns',
         scientific_name: 'platycerium',
-        url: '', 
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/staghornFernFinal/', 
       },
       {
         id: '',
