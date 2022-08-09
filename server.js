@@ -25,3 +25,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 sequelize.sync();
 app.listen(PORT, () => console.log('Now listening'));
+
+

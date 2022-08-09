@@ -188,16 +188,32 @@ router.get('/users/:id', async (req, res) => {
 //     },
 //     ...
 // ]
-router.get('/plants', async (req, res) => {
-    try {
-        const plants = await Plant.findAll({
-            where: {
-                url: null
-            }
-        });
+// router.get('/plants', async (req, res) => {
+//     try {
+//         const plants = await Plant.findAll({
+//             where: {
+//                 url: null
+//             }
+            
+//         });
 
-        return res.status(200).json(plants);
-    } catch (err) {
-        res.status(500).json(err);
-    }
+//         return res.status(200).json(plants);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
+
+router.get('/plants/:id', async (req, res) => {
+  try {
+      const plants = await Plant.findAll({
+          where: {
+              id: (req.params.id)
+          }
+          
+      });
+
+      return res.status(200).json(plants);
+  } catch (err) {
+      res.status(500).json(err);
+  }
 });
