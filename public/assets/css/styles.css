@@ -396,7 +396,7 @@ embed,
 object {
   display: block;
   /* 1 */
-  vertical-align: middle;
+  /* vertical-align: middle; */
   /* 2 */
 }
 
@@ -586,7 +586,6 @@ video {
 	display: flex;
 	align-items: flex-start;
 	margin-top: 30px;
-	background-color: ;
 }
 
 .form-wrapper {
