@@ -1,300 +1,306 @@
+import { sequelize } from '../../config/connection.js';
 import { Plant } from '../../models/Plant.js';
+
 
 const plantData = [
       {
-        id: '',
-        common_name: 'jade plant',
-        scientific_name: 'crassula ovata',
+        
+        commonName: 'jade plant',
+        scientificName: 'crassula ovata',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/jadePlantFinal/', 
       },
       {
-        id: '',
-        common_name: "burro's tail",
-        scientific_name: 'sedum morganianum',
+        
+        commonName: "burro's tail",
+        scientificName: 'sedum morganianum',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/burrosTailFinal/', 
       },
       {
-        id: '',
-        common_name: 'crown of thorns',
-        scientific_name: 'euphorbia milii',
+        
+        commonName: 'crown of thorns',
+        scientificName: 'euphorbia milii',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/crownOfThornsFinal/', 
       },
       {
-        id: '',
-        common_name: 'panda plant',
-        scientific_name: 'kalanchoe tomentosa',
+        
+        commonName: 'panda plant',
+        scientificName: 'kalanchoe tomentosa',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/pandaPlantFinal/', 
       },
       {
-        id: '',
-        common_name: "snake plant,mother in law's tongue",
-        scientific_name: 'dracaena trifasciata',
+        
+        commonName: "snake plant,mother in law's tongue",
+        scientificName: 'dracaena trifasciata',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/snakePlantFinal/', 
       },
       {
-        id: '',
-        common_name: 'zebra cactus',
-        scientific_name: 'haworthiopsis attenuata',
+        
+        commonName: 'zebra cactus',
+        scientificName: 'haworthiopsis attenuata',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/zebraPlantFinal/', 
       },
       {
-        id: '',
-        common_name: 'christmas cactus',
-        scientific_name: 'schlumbergera',
+        
+        commonName: 'christmas cactus',
+        scientificName: 'schlumbergera',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/christmasCactusFinal/', 
       },
       {
-        id: '',
-        common_name: 'easter lily cactus',
-        scientific_name: 'echinopsis ancistrophora',
+        
+        commonName: 'easter lily cactus',
+        scientificName: 'echinopsis ancistrophora',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/easterLilyCactusFinal/',  
       },
       {
-        id: '',
-        common_name: "elephants's foot plant",
-        scientific_name: 'dioscorea elephantipes',
+        
+        commonName: "elephants's foot plant",
+        scientificName: 'dioscorea elephantipes',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/elephantsFootFinal/', 
       },
       {
-        id: '',
-        common_name: 'hoya hindu rope',
-        scientific_name: 'carnosa compacta',
+        
+        commonName: 'hoya hindu rope',
+        scientificName: 'carnosa compacta',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/hoyaHinduRopeFinal/', 
       },
       {
-        id: '',
-        common_name: 'pencil cactus',
-        scientific_name: 'euphorbia tirucalli',
+        
+        commonName: 'pencil cactus',
+        scientificName: 'euphorbia tirucalli',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/pencilCactusFinal/', 
       },
       {
-        id: '',
-        common_name: 'string of hearts',
-        scientific_name: 'ceropegia',
+        
+        commonName: 'string of hearts',
+        scientificName: 'ceropegia',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/stringOfHeartsFinal/', 
       },
       {
-        id: '',
-        common_name: 'string of pearls',
-        scientific_name: 'senecio rowleyanus',
+        
+        commonName: 'string of pearls',
+        scientificName: 'senecio rowleyanus',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/stringOfPearlsFinal/', 
       },
       {
-        id: '',
-        common_name: 'dolphin succulent',
-        scientific_name: 'senecio peregrinus',
+        
+        commonName: 'dolphin succulent',
+        scientificName: 'senecio peregrinus',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/dolphinPlantFinal/', 
       },
       {
-        id: '',
-        common_name: 'fishbone cactus',
-        scientific_name: 'epiphyllum anguliger',
+        
+        commonName: 'fishbone cactus',
+        scientificName: 'epiphyllum anguliger',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/fishboneCactusFinal/', 
       },
       {
-        id: '',
-        common_name: 'truncate living stone',
-        scientific_name: 'lithops pseudotruncatella',
+        
+        commonName: 'truncate living stone',
+        scientificName: 'lithops pseudotruncatella',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/livingStoneFinal/', 
       },
       {
-        id: '',
-        common_name: 'spiral cactus',
-        scientific_name: "cereus forbesii 'spiralis'",
+        
+        commonName: 'spiral cactus',
+        scientificName: "cereus forbesii 'spiralis'",
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/spiralCactusFinal/', 
       },
       {
-        id: '',
-        common_name: 'rubber tree',
-        scientific_name: 'ficus elastica',
+        
+        commonName: 'rubber tree',
+        scientificName: 'ficus elastica',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rubberTreeFinal/', 
       },
       {
-        id: '',
-        common_name: 'old lady cactus',
-        scientific_name: 'mammillaria hahniana',
+        
+        commonName: 'old lady cactus',
+        scientificName: 'mammillaria hahniana',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/oldLadyCactusFinal/', 
       },
       {
-        id: '',
-        common_name: 'umbrella tree',
-        scientific_name: 'schefflera arboricola',
+        
+        commonName: 'umbrella tree',
+        scientificName: 'schefflera arboricola',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/umbrellaTreeFinal/', 
       },
       {
-        id: '',
-        common_name: 'desert rose',
-        scientific_name: 'adenium obesum',
+        
+        commonName: 'desert rose',
+        scientificName: 'adenium obesum',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/desertRoseFinal/', 
       },
       {
-        id: '',
-        common_name: 'rose,rosa',
-        scientific_name: 'rosaceae',
+        
+        commonName: 'rose,rosa',
+        scientificName: 'rosaceae',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/roseFinal/', 
       },
       {
-        id: '',
-        common_name: 'bougainvillea',
-        scientific_name: 'bougainvillea glabra',
+        
+        commonName: 'bougainvillea',
+        scientificName: 'bougainvillea glabra',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/bougainvilleaFinal/', 
       },
       {
-        id: '',
-        common_name: 'gardenia',
-        scientific_name: 'gardenia jasminoides',
+        
+        commonName: 'gardenia',
+        scientificName: 'gardenia jasminoides',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/gardeniaFinal/', 
       },
       {
-        id: '',
-        common_name: 'hibiscus',
-        scientific_name: 'hibiscus rosa-sinensis',
+        
+        commonName: 'hibiscus',
+        scientificName: 'hibiscus rosa-sinensis',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/hibiscusFinal/', 
       },
       {
-        id: '',
-        common_name: 'periwinkle',
-        scientific_name: 'myrtle,vinca minor',
+        
+        commonName: 'periwinkle',
+        scientificName: 'myrtle,vinca minor',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/vincaFinal/', 
       },
       {
-        id: '',
-        common_name: 'rio,rock trumpet',
-        scientific_name: 'diplandenia,mandevilla',
+        
+        commonName: 'rio,rock trumpet',
+        scientificName: 'diplandenia,mandevilla',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rioFinal/', 
       },
       {
-        id: '',
-        common_name: "widow's thrill",
-        scientific_name: 'kalanchoe',
+        
+        commonName: "widow's thrill",
+        scientificName: 'kalanchoe',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/widowsThrillFinal/', 
       },
       {
-        id: '',
-        common_name: 'wax begonia',
-        scientific_name: 'begonia x semperflorens-cultorum',
+        
+        commonName: 'wax begonia',
+        scientificName: 'begonia x semperflorens-cultorum',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/waxBegoniaFinal/', 
       },
       {
-        id: '',
-        common_name: 'plumeria',
-        scientific_name: 'frangipani',
+        
+        commonName: 'plumeria',
+        scientificName: 'frangipani',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/plumeriaFinal/', 
       },
       {
-        id: '',
-        common_name: 'lotus,indian lotus,sacred lotus',
-        scientific_name: 'nelumbo nucifera',
+        
+        commonName: 'lotus,indian lotus,sacred lotus',
+        scientificName: 'nelumbo nucifera',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/lotusFinal/', 
       },
       {
-        id: '',
-        common_name: 'african milk tree',
-        scientific_name: 'euphorbia trigona ',
+        
+        commonName: 'african milk tree',
+        scientificName: 'euphorbia trigona ',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/africanMilkTreeFinal/', 
       },
       {
-        id: '',
-        common_name: 'rattlesnake plant',
-        scientific_name: 'goeppertia insignis',
+        
+        commonName: 'rattlesnake plant',
+        scientificName: 'goeppertia insignis',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rattlesnakeFinal/', 
       },
       {
-        id: '',
-        common_name: 'swiss cheese plant,monstera',
-        scientific_name: 'monstera deliciosa,split leaf philodendron',
+        
+        commonName: 'swiss cheese plant,monstera',
+        scientificName: 'monstera deliciosa,split leaf philodendron',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/monsteraFinal/', 
       },
       {
-        id: '',
-        common_name: 'fiddle leaf fig',
-        scientific_name: 'ficus lyrata',
+        
+        commonName: 'fiddle leaf fig',
+        scientificName: 'ficus lyrata',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/fiddleLeafFigFinal/', 
       },
       {
-        id: '',
-        common_name: 'lucky bamboo',
-        scientific_name: 'dracaena sanderiana',
+        
+        commonName: 'lucky bamboo',
+        scientificName: 'dracaena sanderiana',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/luckyBambooFinal/', 
       },
       {
-        id: '',
-        common_name: 'peace lily',
-        scientific_name: 'spathiphyllum',
+        
+        commonName: 'peace lily',
+        scientificName: 'spathiphyllum',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/peaceLilyFinal/', 
       },
       {
-        id: '',
-        common_name: 'ponytail palm',
-        scientific_name: 'beaucarnea recurvata',
+        
+        commonName: 'ponytail palm',
+        scientificName: 'beaucarnea recurvata',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/ponytailPalmFinal/', 
       },
       {
-        id: '',
-        common_name: 'pothos',
-        scientific_name: 'epipremnum aureum',
+        
+        commonName: 'pothos',
+        scientificName: 'epipremnum aureum',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/pothosFinal/', 
       },
       {
-        id: '',
-        common_name: 'bromeliad',
-        scientific_name: 'bromeliaceae',
+        
+        commonName: 'bromeliad',
+        scientificName: 'bromeliaceae',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/bromeliadFinal/', 
       },
       {
-        id: '',
-        common_name: 'orchid',
-        scientific_name: 'orchidaceae',
+        
+        commonName: 'orchid',
+        scientificName: 'orchidaceae',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/orchidFinal/', 
       },
       {
-        id: '',
-        common_name: 'english ivy',
-        scientific_name: 'hedera helix',
+        
+        commonName: 'english ivy',
+        scientificName: 'hedera helix',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/englishIvyFinal/', 
       },
       {
-        id: '',
-        common_name: "elephant's ear",
-        scientific_name: 'alocasia',
+        
+        commonName: "elephant's ear",
+        scientificName: 'alocasia',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/elephantEarsFinal/', 
       },
       {
-        id: '',
-        common_name: 'prayer plant',
-        scientific_name: 'maranta leuconeura',
+        
+        commonName: 'prayer plant',
+        scientificName: 'maranta leuconeura',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/prayerPlantFinal/', 
       },
       {
-        id: '',
-        common_name: 'money tree',
-        scientific_name: 'pachira aquatica',
+        
+        commonName: 'money tree',
+        scientificName: 'pachira aquatica',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/moneyTreeFinal/', 
       },
       {
-        id: '',
-        common_name: 'chinese money plant',
-        scientific_name: 'pilea peperomioides',
+        
+        commonName: 'chinese money plant',
+        scientificName: 'pilea peperomioides',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/chineseMoneyFinal/', 
       },
       {
-        id: '',
-        common_name: 'madagascar palm',
-        scientific_name: 'pachypodium lamerei',
+        
+        commonName: 'madagascar palm',
+        scientificName: 'pachypodium lamerei',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/madagascarPalmFinal/', 
       },
       {
-        id: '',
-        common_name: 'staghorn ferns',
-        scientific_name: 'platycerium',
+        
+        commonName: 'staghorn ferns',
+        scientificName: 'platycerium',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/staghornFernFinal/', 
       },
       {
-        id: '',
-        common_name: 'zz plant',
-        scientific_name: 'zamioculcas',
+        
+        commonName: 'zz plant',
+        scientificName: 'zamioculcas',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/zzPlantFinal/', 
       },
 ];
 
-const seedPlants = () => Plant.bulkCreate(plantData)
+const seedPlants = async () => {
+  await sequelize.sync({force: true}) 
+  Plant.bulkCreate(plantData)
+}
+seedPlants();

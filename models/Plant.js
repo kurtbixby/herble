@@ -20,11 +20,13 @@ Plant.init(
       },
       commonName: {
         type: DataTypes.STRING, 
-        allowNull: false,
+        allowNull: true,
+        defaultValue: null,
       },
       scientificName: {
         type: DataTypes.STRING, 
-        allowNull: false, 
+        allowNull: true, 
+        defaultValue: null,
       },
     },
     {

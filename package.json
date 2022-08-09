@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "tailwindcss -i ./src/styles.css -o ./css/styles.css --watch",
     "build": "tailwindcss -i ./src/styles.css -o ./css/style.css",
-    "seeds": "node db/seeds/createHerbles.js"
+    "seeds": "node db/seeds/moreSeeds.js"
     
   },
   "repository": {
