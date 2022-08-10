@@ -1,6 +1,6 @@
 import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
 
-const HERBLE_FORM = document.getElementById('herbleForm');
+const HERBLE_FORM = document.getElementById('herble-form');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
 const DAY_MILLISECONDS = 86400000;
 
@@ -41,6 +41,7 @@ async function init() {
 //     currentPicture: NUMBER
 // }
 async function initializeGameState(gameState) {
+    console.log('initializeGameState');
     const herbleNumber = calculateHerbleNumber(dayOne);
     const stateString = localStorage.getItem(GAME_STATE_KEY);
     if (stateString == null) {
@@ -70,7 +71,7 @@ async function initializeGameState(gameState) {
 
 function fillGameState(emptyState, fullState) {
     emptyState.gameNumber = fullState.gameNumber;
-    emptyState.answer = fullState.answer
+    emptyState.answers = fullState.answers;
     emptyState.url = fullState.url;
     emptyState.currentGuesses = fullState.currentGuesses;
     emptyState.guesses = fullState.guesses;
@@ -81,17 +82,20 @@ function fillGameState(emptyState, fullState) {
 // How do we handle an error with the getHerble request
 async function createFreshGameState(herbleNumber) {
     const todaysHerble = await getHerble(herbleNumber);
-    console.log(todaysHerble);
+
+    const herbleAnswers = todaysHerble.plant.commonName.split(',').map(e => `${e} - ${todaysHerble.plant.scientificName}`);
 
     let gameState = {
         gameNumber: herbleNumber,
-        answer: todaysHerble.plant.name,
+        answers: herbleAnswers,
         url: todaysHerble.plant.url,
         currentGuesses: 0,
         guesses: [],
         status: GAME_STATUS_STRINGS[0],
         currentPicture: 1,
     };
+    
+    console.log(gameState);
     
     return gameState;
 }
@@ -109,7 +113,7 @@ async function fetchPlantNames(plantsArray) {
         const commonNames = e.commonName.split(',');
         commonNames.forEach(n => {
             if (n != '') {
-                const fullName = `${n.commonName.toLowerCase()} - ${n.scientificName.toLowerCase()}`;
+                const fullName = `${n.toLowerCase()} - ${e.scientificName.toLowerCase()}`;
                 PLANTS.push(fullName);
             }
         });
@@ -122,23 +126,26 @@ function calculateHerbleNumber(startingDay) {
 
 function makeAGuess(event) {
     event.preventDefault();
-    const guess = HERBLE_FORM.textContent;
+    const guess = HERBLE_FORM.querySelector('#herble-search').value;
 
     sendGuess({guess: guess, herbleNum: GAME_STATE.gameNumber, guessNum: ++GAME_STATE.currentGuesses});
     GAME_STATE.guesses.push(guess);
 
-    if (guess != GAME_STATE.answer) {
+    if (!GAME_STATE.answers.includes(guess)) {
         // failure
         if (GAME_STATE.currentGuesses === GAME_MAX_GUESSES) {
             GAME_STATE.status = GAME_STATUS_STRINGS[1];
             sendResult({number: GAME_STATE.gameNumber, success: false });
         } else {
+            // Not total failure
         }
     } else {
         // correct
         GAME_STATE.status = GAME_STATUS_STRINGS[2];
         sendResult({number: GAME_STATE.gameNumber, success: true });
     }
+
+    GAME_STATE.currentPicture = Math.min(GAME_STATE.currentPicture + 1, GAME_MAX_GUESSES);
     
     saveGameState(GAME_STATE);
     refreshBoard(GAME_STATE);
@@ -187,33 +194,35 @@ function highlightWord(word, substr) {
 
 function refreshBoard(gameState) {
     console.debug('refreshBoard')
+    
     // Reveal new image picker button
     // Set that image picker to active
+
     // Update image source
     HERBLE_IMAGE.src = `${gameState.url}${gameState.currentPicture}.jpg`;
 
-    // Update current image variable
-
     // If the game is finished
-    if (GAME_STATE.status && GAME_STATE.status != GAME_STATUS_STRINGS[0]) {
+    if (gameState.status && gameState.status != GAME_STATUS_STRINGS[0]) {
+        console.log(gameState);
         // Do things
-        finishGame();
+        finishGame(gameState);
     }
 }
 
-function finishGame() {
+function finishGame(gameState) {
     // Pop up the modal
     // Final image, stats block, share button
 
-    const resultsString = createResultsString(GAME_STATE);
-    Navigator.clipboard.write(resultsString);
+    const resultsString = createResultsString(gameState);
+    console.log(resultsString);
+    navigator.clipboard.writeText(resultsString);
 }
 
 // This function should only be called on a finished game
 // Otherwise the results are inaccurate
 function createResultsString(gameState) {
     // This is hardcoded to 6 and doesn't use the MAX_GUESSES const
-    const guessBlocks = ['⬛','⬛','⬛','⬛','⬛','⬛','⬛'];
+    const guessBlocks = ['⬛','⬛','⬛','⬛','⬛','⬛'];
     let tries = 1;
     // If the game was failed
     if (gameState.status === GAME_STATUS_STRINGS[1]) {
