@@ -1,4 +1,4 @@
-import { getHerble, getPlants, sendGuess, sendResult } from "./requests";
+import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
 
 const HERBLE_FORM = document.getElementById('herbleForm');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
@@ -18,14 +18,14 @@ const dayOne = new Date(2022, 7, 9).getTime();
 const PLANTS = [];
 const GAME_STATE = {};
 
-function init() {
+async function init() {
     HERBLE_FORM.addEventListener('submit', makeAGuess);
 
     // Load the list of plants
     fetchPlantNames(PLANTS);
 
     // Try to load stored game state
-    initializeGameState(GAME_STATE);
+    await initializeGameState(GAME_STATE);
 
     refreshBoard(GAME_STATE);
 }
@@ -40,7 +40,6 @@ function init() {
 //     status: STRING,
 //     currentPicture: NUMBER
 // }
-
 async function initializeGameState(gameState) {
     const herbleNumber = calculateHerbleNumber(dayOne);
     const stateString = localStorage.getItem(GAME_STATE_KEY);
@@ -82,6 +81,7 @@ function fillGameState(emptyState, fullState) {
 // How do we handle an error with the getHerble request
 async function createFreshGameState(herbleNumber) {
     const todaysHerble = await getHerble(herbleNumber);
+    console.log(todaysHerble);
 
     let gameState = {
         gameNumber: herbleNumber,
@@ -141,7 +141,7 @@ function makeAGuess(event) {
     }
     
     saveGameState(GAME_STATE);
-    refreshBoard();
+    refreshBoard(GAME_STATE);
 }
 
 function selectImagePicker(event) {
@@ -185,10 +185,13 @@ function highlightWord(word, substr) {
     };
 }
 
-function refreshBoard() {
+function refreshBoard(gameState) {
+    console.debug('refreshBoard')
     // Reveal new image picker button
     // Set that image picker to active
     // Update image source
+    HERBLE_IMAGE.src = `${gameState.url}${gameState.currentPicture}.jpg`;
+
     // Update current image variable
 
     // If the game is finished
@@ -199,8 +202,42 @@ function refreshBoard() {
 }
 
 function finishGame() {
+    // Pop up the modal
+    // Final image, stats block, share button
 
+    const resultsString = createResultsString(GAME_STATE);
+    Navigator.clipboard.write(resultsString);
 }
 
+// This function should only be called on a finished game
+// Otherwise the results are inaccurate
+function createResultsString(gameState) {
+    // This is hardcoded to 6 and doesn't use the MAX_GUESSES const
+    const guessBlocks = ['⬛','⬛','⬛','⬛','⬛','⬛','⬛'];
+    let tries = 1;
+    // If the game was failed
+    if (gameState.status === GAME_STATUS_STRINGS[1]) {
+        tries = 'X';
+        for (var i = 0; i < guessBlocks.length; i++) {
+            guessBlocks[i] = '🟥';
+        }
+    } else { // If the game was solved
+        tries = gameState.currentGuesses;
+
+        let i = 0;
+        for (; i < Math.min(gameState.currentGuesses - 1 - 1, guessBlocks.length); i++) {
+            guessBlocks[i] = '🟥';
+        }
+        guessBlocks[i++] = '🟩';
+        for (; i < guessBlocks.length; i++) {
+            guessBlocks[i] = '⬛'
+        }
+    }
+
+    let resultsTemplate = `Herble #${gameState.gameNumber} ${tries}/${GAME_MAX_GUESSES}\n` + guessBlocks.join(' ');
+    resultsTemplate += '\nhttps://herble.app';
+
+    return resultsTemplate;
+}
 
 init();
