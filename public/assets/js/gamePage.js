@@ -28,8 +28,8 @@ const GAME_STATE = {};
 function initModal() {
     const modalEl = document.getElementById(RESULTS_MODAL_ID);
     const options = {
-        placement: 'bottom-right',
-        backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+        placement: 'top-center',
+        // backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
         onHide: () => {
             console.log('modal is hidden');
         },
