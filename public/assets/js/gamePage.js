@@ -5,6 +5,8 @@ const HERBLE_INPUT = HERBLE_FORM.querySelector('#herble-search');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
 const AUTO_COMPLETE_LIST = document.getElementById('auto-complete-list');
 
+const PAST_GUESSES_HOLDER = document.getElementById('past-guesses');
+
 const DAY_MILLISECONDS = 86400000;
 
 const IMAGE_BUTTONS = document.getElementsByClassName('image-button');
@@ -52,6 +54,7 @@ function initModal() {
 
 async function init() {
     HERBLE_FORM.addEventListener('submit', makeAGuess);
+    HERBLE_INPUT.value = '';
     HERBLE_INPUT.addEventListener('input', showAutoComplete);
     document.getElementById('share-results-button').addEventListener('click', copyToClipboard);
 
@@ -244,6 +247,7 @@ function showAutoComplete(event) {
     separatedWords.forEach(word => {
         // create element for word
         const wordElement = createAutoCompleteWordHTML(word);
+        wordElement.addEventListener('click', setHerbleInput);
         // append to list
         AUTO_COMPLETE_LIST.appendChild(wordElement);
     })
@@ -271,6 +275,13 @@ function highlightWord(word, substr) {
     };
 }
 
+function setHerbleInput(event) {
+    event.preventDefault();
+    console.log(event.currentTarget);
+    HERBLE_INPUT.value = event.currentTarget.textContent;
+    HERBLE_INPUT.focus();
+}
+
 function refreshBoard(gameState) {
     const gameFinished = gameState.status != GAME_STATUS_STRINGS[0];
 
@@ -287,6 +298,25 @@ function refreshBoard(gameState) {
 
     // Update image source
     HERBLE_IMAGE.src = `${gameState.url}${gameState.currentPicture}.jpg`;
+
+    // Append guess to the bottom
+    PAST_GUESSES_HOLDER.innerHTML = '';
+    gameState.guesses.forEach((g, i) => {
+        let correct = false;
+        if (gameState.status == GAME_STATUS_STRINGS[2] && i == gameState.currentGuesses - 1) {
+            correct = true;
+        }
+        const guessElement = createGuessHtml(g, correct);
+        PAST_GUESSES_HOLDER.appendChild(guessElement);
+    });
+}
+
+function createGuessHtml(guess, correct) {
+    const element = document.createElement("div");
+    const icon = correct ? '✔' : '❌';
+    element.innerHTML = `${icon} ${guess}`;
+    element.classList.add(['text-stone-900', 'object-center', 'p-2.5', 'ml-2', 'text-sm', 'font-medium', 'text-white', 'bg-emerald-200', 'rounded-lg', 'border', 'border-orange-700', 'hover:bg-orange-700', 'focus:ring-4', 'focus:outline-none', 'focus:ring-orange-300', 'dark:bg-neutral-800', 'dark:hover:bg-orange-700', 'dark:focus:ring-orange-800', 'dark:text-slate-400']);
+    return element;
 }
 
 function finishGame(gameState) {
@@ -387,7 +417,7 @@ function createResultsString(gameState) {
         tries = gameState.currentGuesses;
 
         let i = 0;
-        for (; i < Math.min(gameState.currentGuesses - 1 - 1, guessBlocks.length); i++) {
+        for (; i < Math.min(gameState.currentGuesses - 1, guessBlocks.length); i++) {
             guessBlocks[i] = '🟥';
         }
         guessBlocks[i++] = '🟩';
