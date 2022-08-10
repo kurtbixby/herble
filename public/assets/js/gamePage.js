@@ -1,5 +1,4 @@
 import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
-import { toggleModal } from "./helpers.js";
 
 const HERBLE_FORM = document.getElementById('herble-form');
 const HERBLE_INPUT = HERBLE_FORM.querySelector('#herble-search');
