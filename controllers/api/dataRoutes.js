@@ -93,6 +93,10 @@ router.post('/herble', async (req, res) => {
 // }
 // UPDATE USER STATS MODEL
 router.post('/herble/data', async (req, res) => {
+    if (!req.session) {
+        res.status(401);
+        return;
+    }
     try {
         if (!req.session.loggedIn) {
             res.status(401).json({ message: 'Unauthorized' });
