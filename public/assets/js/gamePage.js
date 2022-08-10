@@ -9,6 +9,7 @@ const IMAGE_BUTTONS = document.getElementsByClassName('image-button');
 const IMAGE_BUTTONS_ARRAY = Array.from(IMAGE_BUTTONS);
 
 const RESULTS_MODAL_ID = 'resultsModal';
+const RESULTS_MODAL = initModal();
 
 const MAX_AUTOCOMPLETE = 5;
 
@@ -24,7 +25,30 @@ const dayOne = new Date(2022, 7, 9).getTime();
 const PLANTS = [];
 const GAME_STATE = {};
 
+function initModal() {
+    const modalEl = document.getElementById(RESULTS_MODAL_ID);
+    const options = {
+        placement: 'bottom-right',
+        backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+        onHide: () => {
+            console.log('modal is hidden');
+        },
+        onShow: () => {
+            console.log('modal is shown');
+        },
+        onToggle: () => {
+            console.log('modal has been toggled');
+        }
+    };
+
+    document.getElementById('resultsClose').addEventListener('click', hideResultsClick);
+
+    return new Modal(modalEl, options);
+}
+
 async function init() {
+
+
     HERBLE_FORM.addEventListener('submit', makeAGuess);
 
     IMAGE_BUTTONS_ARRAY.forEach(e => e.addEventListener('click', selectImagePicker));
@@ -239,7 +263,16 @@ function finishGame(gameState) {
 }
 
 function showResults(gameState) {
-    toggleModal(RESULTS_MODAL_ID);
+    RESULTS_MODAL.show();
+}
+
+function hideResultsClick(event) {
+    event.preventDefault();
+    hideResults();
+}
+
+function hideResults() {
+    RESULTS_MODAL.hide();
 }
 
 // This function should only be called on a finished game
