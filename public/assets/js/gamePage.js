@@ -53,6 +53,7 @@ function initModal() {
 async function init() {
     HERBLE_FORM.addEventListener('submit', makeAGuess);
     HERBLE_INPUT.addEventListener('input', showAutoComplete);
+    document.getElementById('share-results-button').addEventListener('click', copyToClipboard);
 
     IMAGE_BUTTONS_ARRAY.forEach(e => e.addEventListener('click', selectImagePicker));
 
@@ -272,9 +273,9 @@ function highlightWord(word, substr) {
 
 function refreshBoard(gameState) {
     const gameFinished = gameState.status != GAME_STATUS_STRINGS[0];
+
     // Reveal new image picker button
     // Set that image picker to active
-
     const buttonLimit = gameFinished ? IMAGE_BUTTONS_ARRAY.length : Math.min(gameState.currentGuesses + 1, IMAGE_BUTTONS_ARRAY.length);
 
     for (var i = 0; i < buttonLimit; i++) {
@@ -303,8 +304,6 @@ function finishGame(gameState) {
     // Pop up the modal
     showResults(gameState);
 
-    // const resultsString = createResultsString(gameState);
-    // navigator.clipboard.writeText(resultsString);
 }
 
 // {
@@ -363,6 +362,13 @@ function hideResultsClick(event) {
 
 function hideResults() {
     RESULTS_MODAL.hide();
+}
+
+function copyToClipboard(event) {
+    event.preventDefault();
+
+    const resultsString = createResultsString(GAME_STATE);
+    navigator.clipboard.writeText(resultsString);
 }
 
 // This function should only be called on a finished game
