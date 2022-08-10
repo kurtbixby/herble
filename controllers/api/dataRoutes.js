@@ -1,8 +1,7 @@
 export { router };
 
 import express from 'express';
-import { Guess, Herble, User, UserStats } from '../../models/index.js';
-import { Plant } from '../../models/Plant.js';
+import { Guess, Herble, Plant, User, UserStats } from '../../models/index.js';
 
 const router = express.Router();
 
@@ -14,15 +13,18 @@ const router = express.Router();
 // }
 router.get('/herble/:num', async (req, res) => {
     try {
-      const picture = await Plant.findOne({
-        where: {
-          id: req.params.num
-        }
-        
-      });
-        res.status(200).json(picture);
+        const herble = await Herble.findByPk({
+            where: {
+                number: req.params.num
+            },
+            include: {
+                model: Plant,
+                attributes: ['commonName', 'scientificName', 'url']
+            }
+        });
+        res.status(200).json(herble);
     } catch (err) {
-      res.status(500).json(err);
+        res.status(500).json(err);
     }
 });
 
@@ -50,19 +52,22 @@ router.post('/herble', async (req, res) => {
 
         stats.gamesPlayed++;
         if (req.body.success) {
+            const herble = await Herble.findOne({
+                where: { number: req.body.number }
+            });
             stats.gamesSolved++;
             // If none have been solved before
             if (!stats.lastSolved) {
-                stats.lastSolved = req.body.number;
+                stats.lastSolved = herble.id;
                 stats.streak = 1;
             } else {
                 // If the number just solved is one after the previously solved
-                if (req.body.number == stats.lastSolved + 1) {
+                if (req.body.number == herble.number + 1) {
                     stats.streak++;
                 } else {
                     stats.streak = 0;
                 }
-                stats.lastSolved = req.body.number;
+                stats.lastSolved = herble.id;
             }
             stats.highestStreak = Math.max(stats.streak, stats.highestStreak);
         } else {
@@ -188,31 +193,12 @@ router.get('/users/:id', async (req, res) => {
 //     },
 //     ...
 // ]
-// router.get('/plants', async (req, res) => {
-//     try {
-//         const plants = await Plant.findAll({
-//             where: {
-//                 url: null
-//             }
-            
-//         });
-
-//         return res.status(200).json(plants);
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
-
-router.get('/plants/:id', async (req, res) => {
-  try {
-      const plants = await Plant.findAll({
-          where: {
-              id: (req.params.id)
-          }
-          
-      });
-
-      return res.status(200).json(plants);
+router.get('/plants', async (req, res) => {
+    try {
+        const plants = await Plant.findAll({
+            attributes: ['commonName', 'scientificName']
+        });
+        return res.status(200).json(plants);
   } catch (err) {
       res.status(500).json(err);
   }
