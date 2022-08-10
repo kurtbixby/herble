@@ -13,7 +13,7 @@ const router = express.Router();
 // }
 router.get('/herble/:num', async (req, res) => {
     try {
-        const herble = await Herble.findByPk({
+        const herble = await Herble.findOne({
             where: {
                 number: req.params.num
             },
@@ -24,6 +24,7 @@ router.get('/herble/:num', async (req, res) => {
         });
         res.status(200).json(herble);
     } catch (err) {
+        console.error(err);
         res.status(500).json(err);
     }
 });
@@ -92,6 +93,10 @@ router.post('/herble', async (req, res) => {
 // }
 // UPDATE USER STATS MODEL
 router.post('/herble/data', async (req, res) => {
+    if (!req.session) {
+        res.status(401);
+        return;
+    }
     try {
         if (!req.session.loggedIn) {
             res.status(401).json({ message: 'Unauthorized' });
