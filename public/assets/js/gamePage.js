@@ -4,6 +4,9 @@ const HERBLE_FORM = document.getElementById('herble-form');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
 const DAY_MILLISECONDS = 86400000;
 
+const IMAGE_BUTTONS = document.getElementsByClassName('image-button');
+let currentButton;
+
 const MAX_AUTOCOMPLETE = 5;
 
 const GAME_STATE_KEY = 'herble-state';
@@ -20,12 +23,13 @@ const GAME_STATE = {};
 
 async function init() {
     HERBLE_FORM.addEventListener('submit', makeAGuess);
-
+    IMAGE_BUTTONS.addEventListener('click', selectImagePicker);
     // Load the list of plants
     fetchPlantNames(PLANTS);
 
     // Try to load stored game state
     await initializeGameState(GAME_STATE);
+    currentButton = IMAGE_BUTTONS[GAME_STATE.currentPicture - 1];
 
     refreshBoard(GAME_STATE);
 }
@@ -156,13 +160,18 @@ function selectImagePicker(event) {
     
     const imagePicker = event.currentTarget;
 
+    IMAGE_BUTTONS.forEach(e => {
+        e.removeAttribute('disabled');
+    })
+
     // Check if is active button
+    imagePicker.setAttribute('disabled', '');
+
     // Change old/existing active button
+
     // Set new active button
 
     const number = imagePicker.dataset.number;
-
-    HERBLE_IMAGE.src = `${GAME_STATE.url}/${number}`;
 }
 
 function showAutoComplete(event) {

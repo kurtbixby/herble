@@ -9,7 +9,11 @@ const API_PORT = process.env.PORT || 3001;
 
 router.get('/', async (req, res) => {
     try {
-      res.render('gamePage')
+      let loggedIn = false;
+      if (req.session) {
+        loggedIn = req.session.loggedIn;
+      }
+      res.render('gamePage', loggedIn);
     } catch (err) {
       res.status(500).json(err);
     }

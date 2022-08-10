@@ -48,13 +48,14 @@
   Marian Fediuc: https://github.com/marianfediuc
 
   ## Technologies
-  Express and Router for handling routes.
-  Express Handlebars for creating our views.
-  Sequelize and mySQL2 for seeding and interfacing with the database.
-  Passport for user authentication.
-  dotENV for managing environment variables and hiding information.
-  bcrypt for hashing passwords
-  express-session for managing session middleware.
+  Express and Router for handling routes.  
+  Express Handlebars for creating our views.  
+  Sequelize and mySQL2 for seeding and interfacing with the database.  
+  Passport for user authentication.  
+  dotENV for managing environment variables and hiding information.  
+  bcrypt for hashing passwords.  
+  express-session for managing session middleware.  
+  cookie-session for storing the sessions.  
  
 
 

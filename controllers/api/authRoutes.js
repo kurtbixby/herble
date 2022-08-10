@@ -9,9 +9,12 @@ const router = express.Router();
 // Sets the session's user_id and logged_in status
 router.post('/login', async (req, res) => {
     try {
+        console.log(req.body);
         const user = await User.findOne({ where: { email: req.body.email }});
+        console.log(user);
 
         if (!user) {
+            console.error('No user');
             res.status(400).json({ message: 'Incorrect email or password, please try again'});
             return;
         }
@@ -19,6 +22,7 @@ router.post('/login', async (req, res) => {
         const validPassword = user.checkPassword(req.body.password);
 
         if (!validPassword) {
+            console.error('Invalid password');
             res.status(400).json({ message: 'Incorrect email or password, please try again'});
             return;
         }
@@ -28,6 +32,7 @@ router.post('/login', async (req, res) => {
             req.session.loggedIn = true;
         })
     } catch (err) {
+        console.error(err);
         res.status(400).json(err);
     }
 });
