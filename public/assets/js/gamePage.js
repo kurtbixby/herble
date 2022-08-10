@@ -2,6 +2,7 @@ import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
 import { toggleModal } from "./helpers.js";
 
 const HERBLE_FORM = document.getElementById('herble-form');
+const HERBLE_INPUT = HERBLE_FORM.querySelector('#herble-search');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
 const DAY_MILLISECONDS = 86400000;
 
@@ -47,8 +48,6 @@ function initModal() {
 }
 
 async function init() {
-
-
     HERBLE_FORM.addEventListener('submit', makeAGuess);
 
     IMAGE_BUTTONS_ARRAY.forEach(e => e.addEventListener('click', selectImagePicker));
@@ -60,6 +59,7 @@ async function init() {
     await initializeGameState(GAME_STATE);
 
     refreshBoard(GAME_STATE);
+    checkEndState(GAME_STATE);
 }
 
 // Game State
@@ -158,30 +158,42 @@ function calculateHerbleNumber(startingDay) {
 
 function makeAGuess(event) {
     event.preventDefault();
-    const guess = HERBLE_FORM.querySelector('#herble-search').value;
+    const gameState = GAME_STATE;
+    const guess = HERBLE_INPUT.value;
 
-    sendGuess({guess: guess, herbleNum: GAME_STATE.gameNumber, guessNum: ++GAME_STATE.currentGuesses});
-    GAME_STATE.guesses.push(guess);
+    sendGuess({guess: guess, herbleNum: gameState.gameNumber, guessNum: ++gameState.currentGuesses});
+    gameState.guesses.push(guess);
 
-    if (!GAME_STATE.answers.includes(guess)) {
+    if (!gameState.answers.includes(guess)) {
         // failure
-        if (GAME_STATE.currentGuesses === GAME_MAX_GUESSES) {
-            GAME_STATE.status = GAME_STATUS_STRINGS[1];
-            sendResult({number: GAME_STATE.gameNumber, success: false });
+        console.log('guesses:' + gameState.currentGuesses);
+        if (gameState.currentGuesses === GAME_MAX_GUESSES) {
+            gameState.status = GAME_STATUS_STRINGS[1];
+            sendResult({number: gameState.gameNumber, success: false });
         } else {
             // Not total failure
         }
     } else {
         // correct
-        GAME_STATE.status = GAME_STATUS_STRINGS[2];
-        sendResult({number: GAME_STATE.gameNumber, success: true });
+        gameState.status = GAME_STATUS_STRINGS[2];
+        sendResult({number: gameState.gameNumber, success: true });
     }
 
-    // IMAGE_BUTTONS_ARRAY[GAME_STATE.currentPicture - 1].removeAttribute('disabled');
-    GAME_STATE.currentPicture = Math.min(GAME_STATE.currentGuesses + 1, GAME_MAX_GUESSES);
+    // IMAGE_BUTTONS_ARRAY[gameState.currentPicture - 1].removeAttribute('disabled');
+    gameState.currentPicture = Math.min(gameState.currentGuesses + 1, GAME_MAX_GUESSES);
     
-    saveGameState(GAME_STATE);
-    refreshBoard(GAME_STATE);
+    saveGameState(gameState);
+    refreshBoard(gameState);
+    checkEndState(gameState);
+}
+
+function checkEndState(gameState) {
+    // If the game is finished
+    if (gameState.status && gameState.status != GAME_STATUS_STRINGS[0]) {
+        HERBLE_INPUT.setAttribute('disabled', '');
+        // Do things
+        finishGame(gameState);
+    }
 }
 
 function selectImagePicker(event) {
@@ -199,6 +211,7 @@ function selectImagePicker(event) {
     const clickedNumber = imagePicker.innerText;
     GAME_STATE.currentPicture = clickedNumber;
 
+    saveGameState(GAME_STATE);
     refreshBoard(GAME_STATE);
 }
 
@@ -243,13 +256,6 @@ function refreshBoard(gameState) {
 
     // Update image source
     HERBLE_IMAGE.src = `${gameState.url}${gameState.currentPicture}.jpg`;
-
-    // If the game is finished
-    if (gameState.status && gameState.status != GAME_STATUS_STRINGS[0]) {
-        console.log(gameState);
-        // Do things
-        finishGame(gameState);
-    }
 }
 
 function finishGame(gameState) {
