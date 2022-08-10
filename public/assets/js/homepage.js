@@ -3,7 +3,7 @@ function toggleModal(modalID){
     document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
     document.getElementById(modalID).classList.toggle("flex");
     document.getElementById(modalID + "-backdrop").classList.toggle("flex");
-  }
+}
 
 //This function loads recent searches from local storage when page is loaded
 function loadRecentSearches() {

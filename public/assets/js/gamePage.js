@@ -1,4 +1,5 @@
 import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
+import { toggleModal } from "./helpers.js";
 
 const HERBLE_FORM = document.getElementById('herble-form');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
@@ -6,7 +7,8 @@ const DAY_MILLISECONDS = 86400000;
 
 const IMAGE_BUTTONS = document.getElementsByClassName('image-button');
 const IMAGE_BUTTONS_ARRAY = Array.from(IMAGE_BUTTONS);
-let currentButton;
+
+const RESULTS_MODAL_ID = 'resultsModal';
 
 const MAX_AUTOCOMPLETE = 5;
 
@@ -32,7 +34,6 @@ async function init() {
 
     // Try to load stored game state
     await initializeGameState(GAME_STATE);
-    currentButton = IMAGE_BUTTONS[GAME_STATE.currentPicture - 1];
 
     refreshBoard(GAME_STATE);
 }
@@ -229,10 +230,16 @@ function refreshBoard(gameState) {
 
 function finishGame(gameState) {
     // Pop up the modal
+    showResults(gameState);
+
     // Final image, stats block, share button
 
-    const resultsString = createResultsString(gameState);
-    navigator.clipboard.writeText(resultsString);
+    // const resultsString = createResultsString(gameState);
+    // navigator.clipboard.writeText(resultsString);
+}
+
+function showResults(gameState) {
+    toggleModal(RESULTS_MODAL_ID);
 }
 
 // This function should only be called on a finished game
