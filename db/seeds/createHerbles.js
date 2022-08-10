@@ -21,7 +21,8 @@ async function main() {
 
     console.log(herbleData);
 
-    // await Herble.bulkCreate(herbleData);
+    await sequelize.sync();
+    await Herble.bulkCreate(herbleData);
 }
 
 async function addNewPlants(startingId) {
@@ -88,4 +89,4 @@ function shuffle(array) {
     return array;
 }
 
-getHerblePlants();
+main();

@@ -9,10 +9,14 @@ import { router } from './controllers/index.js';
 import exphbs from 'express-handlebars';
 import { helpers } from './public/assets/js/helpers.js';
 
+import session from 'express-session';
+
 import { sequelize } from './config/connection.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// app.use(session())
 
 const hbs = exphbs.create({helpers});
 app.engine('handlebars', hbs.engine)
@@ -25,5 +29,3 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 sequelize.sync();
 app.listen(PORT, () => console.log('Now listening'));
-
-
