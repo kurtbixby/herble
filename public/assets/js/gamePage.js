@@ -269,7 +269,7 @@ function finishGame(gameState) {
     statsElements[0].textContent = localStats.streak;
     statsElements[1].textContent = localStats.highestStreak;
     statsElements[2].textContent = localStats.gamesPlayed;
-    statsElements[3].textContent = Math.floor(localStats.gamesSolved / localStats.gamesPlayed);
+    statsElements[3].textContent = Math.floor(100 * localStats.gamesSolved / localStats.gamesPlayed) + '%';
 
     // Pop up the modal
     showResults(gameState);
