@@ -2,15 +2,15 @@
     <div class="grid md:grid-cols-5 lg:grid-cols-5 gap-5 space-y-10">
         <div class="md:col-start-2 md:col-span-3 lg:col-start-2 lg:col-span-3 space-y-6">
             <box class="grid justify-items-center">
-                <img class="img2 rounded-md object-cover max-h-[32rem] max-w-full" src="https://images.unsplash.com/photo-1558281033-19cead6981dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+                <img id="herbleImage" class="img2 rounded-md object-cover max-h-[32rem] max-w-full" src="">
             </box>
-            <div class="imgswap space-x-4 flex justify-center">  
-                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25" disabled>1</button>
-                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25" disabled hidden>2</button>
-                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25" disabled hidden>3</button>
-                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25" disabled hidden>4</button>
-                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25" disabled hidden>5</button>
-                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25" disabled hidden>6</button>
+            <div class="imgswap space-x-4 flex justify-center">
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25 image-button" disabled="">1</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25 image-button" hidden="" disabled="">2</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25 image-button" hidden="" disabled="">3</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25 image-button" hidden="" disabled="">4</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25 image-button" hidden="" disabled="">5</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 disabled:opacity-25 image-button" hidden="" disabled="">6</button>
             </div>
             <p class="text-center">
                 Think you know what this plant is?</p>
@@ -25,48 +25,59 @@
                         </div>
                         <input type="text" id="herble-search" class="bg-emerald-200 -50 border border-orange-700 text-stone-900 text-sm rounded-lg focus:ring-blorangeue-500 focus:border-orange-500 block w-full pl-10 p-2.5  dark:bg-neutral-800 dark:border-orange-800 dark:placeholder-gray-400 dark:text-slate-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="This plant is..." required>
                     </div>
+                    <ul id="auto-complete-list">
+                    </ul>
                 </form>
             </div>
-            <div class="flex grid grid-rows-1 gap-4 space-y-2 text-center" id="recent-searches-area">
-                <h2 id="recent-searches-label" class="has-text-centered is-size-2">Past Guesses:</h2>
-                <div id="buttonsContainer" class="columns is-centered mx-1">
-                    <button class="rs1 hidden text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 1</button>
-                    <button class="rs2 hidden text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 2</button>
-                    <button class="rs3 hidden text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 3</button>
-                    <button class="rs4 hidden text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 4</button>
-                    <button class="rs5 hidden text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 5</button><br>
+            <div class="flex grid grid-rows-1 gap-4 space-y-2 text-center" id="past-guesses">
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 1</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 2</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 3</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 4</button>
+                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium text-white bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400" placeholder="">Past Search 5</button>
+            </div>
+        </div>
+    </div>
+    <div id="resultsModal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 md:top-36 h-modal md:h-full" aria-modal="true" role="dialog">
+        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+            <div class="relative bg-emerald-900 rounded-lg shadow dark:bg-neutral-800 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400 shadow-[0rem_.2rem_.5rem_lightslategray]">
+                <div class="flex justify-center items-start p-4 rounded-t border-b dark:border-gray-600">
+                    <h3 class="text-center text-3xl font-semibold text-gray-900 dark:text-slate-400">
+                        Today's Herble Was <span>'Flower'</span>
+                    </h3>
+                </div>
+                <button id="resultsClose" type="button" class="absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg aria-hidden="true" class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-6 space-y-6">
+                    <div id="stats-block" class="flex justify-around">
+                        <div id="stats-streak" class="flex flex-col items-center justify-center">
+                            <p class="text-md font-normal">Current Streak</p>
+                            <p class="text-3xl font-semibold stats-value">1</p>
+                        </div>
+                        <div id="stats-longest-streak" class="flex flex-col items-center justify-center">
+                            <p class="text-md font-normal">Longest Streak</p>
+                            <p class="text-3xl font-semibold stats-value">1</p>
+                        </div>
+                        <div id="stats-games-played" class="flex flex-col items-center justify-center">
+                            <p class="text-md font-normal">Games Played</p>
+                            <p class="text-3xl font-semibold stats-value">1</p>
+                        </div>
+                        <div id="stats-percent-solved" class="flex flex-col items-center justify-center">
+                            <p class="text-md font-normal">Percent Solved</p>
+                            <p class="text-3xl font-semibold stats-value">1</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <p><a href="/signup">Sign up</a> or <a href="/login">login</a> to track your stats across multiple devices!</p>
+                    </div>
+                </div>
+                <div class="flex justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                    <button id="share-results-button" type="button" class="text-gray-900 bg-emerald-200 hover:bg-emerald-200 font-medium text-2xl rounded-lg px-5 py-2.5 text-center dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-900 dark:active:outline-neutral-900 outline dark:outline-neutral-700 dark:text-slate-400 dark:hover:bg-orange-700 dark:focus:ring-orange-700">Share!</button>
                 </div>
             </div>
         </div>
     </div>
-    <p>
-        <div id="defaultModal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex" aria-modal="true" role="dialog">
-            <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <div class="relative bg-emerald-900 rounded-lg shadow dark:bg-neutral-800 dark:bg-neutral-800 dark:focus:ring-orange-800 dark:text-slate-400">
-                    <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                        <h3 class="text-center text-xl font-semibold text-gray-900 dark:text-slate-400">
-                            Today's Herble was <span><h1>'Flower'</h1></span>
-                        </h3>
-                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <div class="p-6 space-y-6">
-                        <div class="columns-2">
-                        <img id="modalImage" class="w-full aspect-video..." alt="insert image of today's herble" />
-                            <div>
-                                insert stat block
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <button data-modal-toggle="defaultModal" type="button" class="text-gray-900 bg-emerald-200 hover:bg-emerald-200 focus:ring-4 focus:outline-none focus:ring-orange-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-neutral-800 dark:text-slate-400 dark:hover:bg-orange-700 dark:focus:ring-orange-700">Share!</button>
-                        <button data-modal-toggle="defaultModal" type="button" class="text-gray-900 bg-emerald-200 hover:bg-emerald-200 focus:ring-4 focus:outline-none focus:ring-orange-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-neutral-800 dark:text-slate-400 dark:hover:bg-orange-700 dark:focus:ring-orange-700">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </p>
     <script src="/assets/js/gamePage.js" type="module"></script>
 </body>

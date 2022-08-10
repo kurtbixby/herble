@@ -7,7 +7,6 @@
     "watch": "tailwindcss -i ./src/styles.css -o ./css/styles.css --watch",
     "build": "tailwindcss -i ./src/styles.css -o ./css/style.css",
     "seeds": "node db/seeds/moreSeeds.js"
-    
   },
   "repository": {
     "type": "git",
@@ -22,6 +21,7 @@
   "homepage": "https://github.com/kurtbixby/herble#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.4",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",

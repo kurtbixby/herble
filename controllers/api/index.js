@@ -7,5 +7,5 @@ import { router as dataRouter } from './dataRoutes.js';
 
 const router = express.Router();
 
-router.use('/auth', authRouter);
+router.use('/', authRouter);
 router.use('/', dataRouter);

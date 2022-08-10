@@ -1,7 +1,5 @@
 export { helpers };
 
-
-
 const helpers = {
   format_time: (date) => {
     return date.toLocaleTimeString();
