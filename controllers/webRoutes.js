@@ -11,10 +11,13 @@ router.get('/', async (req, res) => {
     try {
       let loggedIn = false;
       if (req.session) {
+        console.log('session present');
         loggedIn = req.session.loggedIn;
       }
-      res.render('gamePage', loggedIn);
+      console.log(req.session);
+      res.render('gamePage', { loggedIn });
     } catch (err) {
+      console.error(err);
       res.status(500).json(err);
     }
 });
@@ -31,14 +34,36 @@ async function loginSignUp(req, res) {
 }
 
 // IM NOT SURE WHAT TO DO HERE
+// router.get('/logout', async (req, res) => {
+//     try {
+//         res.render()
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
+
+// Destroys the session
 router.get('/logout', async (req, res) => {
-  if(req.session.loggedOut){ 
+  if (!req.session) {
+      res.redirect('/');
+  }
   try {
-        res.render()
-    } catch (err) {
-      res.status(500).json(err);
-    }
-}});
+      if (req.session.loggedIn) {
+          req.session.user = null;
+          req.session.loggedIn = false;
+          req.session.save((err) => {
+              if (err) next(err);
+              req.session.regenerate((err) => {
+                  if (err) next(err)
+                  res.status(200).redirect('/');
+              });
+          })
+      } else {
+          res.status(200).redirect('/');
+      }
+  } catch (err) {
+  }
+});
 
 // router.get('/users/:signup', async (req, res) => {
 //     try {

@@ -2,6 +2,7 @@ export { router };
 
 import express from 'express';
 import { Guess, Herble, Plant, User, UserStats } from '../../models/index.js';
+import { sessionCheck } from '../../utils/auth.js';
 
 const router = express.Router();
 
@@ -36,7 +37,11 @@ router.get('/herble/:num', async (req, res) => {
 //     number: number,
 //     success: bool,
 // }
-router.post('/herble', async (req, res) => {
+router.post('/herble', sessionCheck, async (req, res) => {
+    // if (!req.session) {
+    //     res.status(401);
+    //     return;
+    // }
     try {
         const stats = await UserStats.findOne({
             // The following line is the line we probably want in the final version
@@ -92,11 +97,11 @@ router.post('/herble', async (req, res) => {
 //     guess: string,
 // }
 // UPDATE USER STATS MODEL
-router.post('/herble/data', async (req, res) => {
-    if (!req.session) {
-        res.status(401);
-        return;
-    }
+router.post('/herble/data', sessionCheck, async (req, res) => {
+    // if (!req.session) {
+    //     res.status(401);
+    //     return;
+    // }
     try {
         if (!req.session.loggedIn) {
             res.status(401).json({ message: 'Unauthorized' });
