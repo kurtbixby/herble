@@ -36,7 +36,7 @@ async function addNewPlants(startingId) {
         }
     });
 
-    const randomPlants = shuffle(plants);
+    const randomPlants = shuffle(newPlants);
 
     const maxHerbleNumber = await Herble.findAll({
         attributes: [Sequelize.fn('max', Sequelize.col('number'))],

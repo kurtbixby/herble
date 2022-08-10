@@ -2,28 +2,28 @@
     <div class="grid md:grid-cols-5 lg:grid-cols-5 gap-5 space-y-10">
         <div class="md:col-start-2 md:col-span-3 lg:col-start-2 lg:col-span-3 space-y-6">
             <box class="grid justify-items-center">
-                <img class="img2 rounded-md max-w-lg" src="https://images.unsplash.com/photo-1558281033-19cead6981dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+                <img id="herbleImage" class="img2 rounded-md" src="">
             </box>
             <div class="imgswap space-x-4 flex justify-center">  
                 <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">1</button>
-                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">2</button>
-                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">3</button>
-                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">4</button>
-                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">5</button>
-                <button class="text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">6</button>
+                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">2</button>
+                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">3</button>
+                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">4</button>
+                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">5</button>
+                <button class="disabled text-stone-900 object-center p-2.5 ml-2 text-sm font-medium bg-emerald-200 rounded-lg border border-orange-700 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-neutral-800 dark:hover:bg-orange-700 dark:focus:ring-orange-800 dark:text-slate-400">6</button>
             </div>
             <p class="text-center">
                 Think you know what this plant is?</p>
             <p class="text-center">Type your guess below!
             </p>
             <div>
-                <form id="herbleForm" class="searchbox space-y-3">   
-                    <label for="simple-search" class="sr-only">Search</label>
+                <form id="herble-form" class="searchbox space-y-3">   
+                    <label for="herble-search" class="sr-only">Search</label>
                     <div class="relative w-half">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-stone-900 dark:text-slate-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                         </div>
-                        <input type="text" id="simple-search" class="bg-emerald-200 -50 border border-orange-700 text-stone-900 text-sm rounded-lg focus:ring-blorangeue-500 focus:border-orange-500 block w-full pl-10 p-2.5  dark:bg-neutral-800 dark:border-orange-800 dark:placeholder-gray-400 dark:text-slate-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="This plant is..." required>
+                        <input type="text" id="herble-search" class="bg-emerald-200 -50 border border-orange-700 text-stone-900 text-sm rounded-lg focus:ring-blorangeue-500 focus:border-orange-500 block w-full pl-10 p-2.5  dark:bg-neutral-800 dark:border-orange-800 dark:placeholder-gray-400 dark:text-slate-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="This plant is..." required>
                     </div>
                 </form>
             </div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="p-6 space-y-6">
                         <div class="columns-2">
-                        <img class="w-full aspect-video ..." src="..." alt="insert image of today's herble" />
+                        <img id="modalImage" class="w-full aspect-video..." alt="insert image of today's herble" />
                             <div>
                                 insert stat block
                             </div>
@@ -68,4 +68,5 @@
             </div>
         </div>
     </p>
+    <script src="/assets/js/gamePage.js" type="module"></script>
 </body>
