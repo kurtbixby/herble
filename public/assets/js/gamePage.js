@@ -427,7 +427,7 @@ function createResultsString(gameState) {
     }
 
     let resultsTemplate = `Herble #${gameState.gameNumber} ${tries}/${GAME_MAX_GUESSES}\n` + guessBlocks.join(' ');
-    resultsTemplate += '\nhttps://herble.app';
+    resultsTemplate += '\nhttps://herble.herokuapp.com/';
 
     return resultsTemplate;
 }
