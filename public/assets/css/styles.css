@@ -750,7 +750,7 @@ video {
 
 @-webkit-keyframes hideLogin {
   0% {
-    background-color: #fff;
+    background-color: rgba(9, 71, 31, 0.846);
     transform: translate(35%, -20px);
   }
 
@@ -759,14 +759,14 @@ video {
   }
 
   100% {
-    background: #d7e7f1;
+    background-color: rgba(9, 71, 31, 0.846);
     transform: translate(40%, 10px);
   }
 }
 
 @keyframes hideLogin {
   0% {
-    background-color: #fff;
+    background-color: rgba(9, 71, 31, 0.846);
     transform: translate(35%, -20px);
   }
 
@@ -775,7 +775,7 @@ video {
   }
 
   100% {
-    background: #d7e7f1;
+    background-color: rgba(9, 71, 31, 0.846);
     transform: translate(40%, 10px);
   }
 }

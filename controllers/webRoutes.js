@@ -19,17 +19,17 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/login', async (req, res) => {
-  // if(req.session.loggedIn) {
-  //   // redirect?
-  //   return;
-  // }
+router.get('/login', loginSignUp);
+router.get('/signup', loginSignUp);
+
+async function loginSignUp(req, res) {
   try {
-      res.render('signin')
-    } catch (err) {
-      res.status(500).json(err); 
-    }
-});
+    res.render('signin')
+  } catch (err) {
+    res.status(500).json(err); 
+  }
+}
+
 // IM NOT SURE WHAT TO DO HERE
 router.get('/logout', async (req, res) => {
   if(req.session.loggedOut){ 
@@ -40,12 +40,12 @@ router.get('/logout', async (req, res) => {
     }
 }});
 
-router.get('/users/:signup', async (req, res) => {
-    try {
-    } catch (err) {
-      res.status(500).json(err); 
-    }
-});
+// router.get('/users/:signup', async (req, res) => {
+//     try {
+//     } catch (err) {
+//       res.status(500).json(err); 
+//     }
+// });
 
 // router.get('/plants')
 // include two paramters for the file and for handlebars

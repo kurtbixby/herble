@@ -1,6 +1,12 @@
 function init() {
 	const switchers = [...document.querySelectorAll('.switcher')];
 
+	if (window.location.pathname.includes('signup')) {
+		document.getElementById('signup-switcher').classList.add('is-active');
+	} else {
+		document.getElementById('login-switcher').classList.add('is-active');
+	}
+
 	switchers.forEach(item => {
 		item.addEventListener('click', function() {
 			switchers.forEach(item => item.parentElement.classList.remove('is-active'));
