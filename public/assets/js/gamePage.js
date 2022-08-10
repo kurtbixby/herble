@@ -5,6 +5,7 @@ const HERBLE_IMAGE = document.getElementById('herbleImage');
 const DAY_MILLISECONDS = 86400000;
 
 const IMAGE_BUTTONS = document.getElementsByClassName('image-button');
+const IMAGE_BUTTONS_ARRAY = Array.from(IMAGE_BUTTONS);
 let currentButton;
 
 const MAX_AUTOCOMPLETE = 5;
@@ -23,7 +24,9 @@ const GAME_STATE = {};
 
 async function init() {
     HERBLE_FORM.addEventListener('submit', makeAGuess);
-    IMAGE_BUTTONS.addEventListener('click', selectImagePicker);
+
+    IMAGE_BUTTONS_ARRAY.forEach(e => e.addEventListener('click', selectImagePicker));
+
     // Load the list of plants
     fetchPlantNames(PLANTS);
 
@@ -157,21 +160,20 @@ function makeAGuess(event) {
 
 function selectImagePicker(event) {
     event.preventDefault();
-    
+    console.log(selectImagePicker);
     const imagePicker = event.currentTarget;
 
-    IMAGE_BUTTONS.forEach(e => {
-        e.removeAttribute('disabled');
-    })
+    // Enable previous button
+    IMAGE_BUTTONS_ARRAY[GAME_STATE.currentPicture - 1].removeAttribute('disabled');
 
-    // Check if is active button
+    // Disable clicked button
     imagePicker.setAttribute('disabled', '');
 
-    // Change old/existing active button
-
     // Set new active button
+    const clickedNumber = imagePicker.innerText;
+    GAME_STATE.currentPicture = clickedNumber;
 
-    const number = imagePicker.dataset.number;
+    refreshBoard(GAME_STATE);
 }
 
 function showAutoComplete(event) {
@@ -206,6 +208,11 @@ function refreshBoard(gameState) {
     
     // Reveal new image picker button
     // Set that image picker to active
+    for (var i = 0; i < Math.min(gameState.currentGuesses, IMAGE_BUTTONS_ARRAY.length); i++) {
+        IMAGE_BUTTONS_ARRAY[i].removeAttribute('hidden');
+    }
+
+    IMAGE_BUTTONS_ARRAY[gameState.currentPicture - 1].setAttribute('disabled', '');
 
     // Update image source
     HERBLE_IMAGE.src = `${gameState.url}${gameState.currentPicture}.jpg`;
@@ -223,7 +230,6 @@ function finishGame(gameState) {
     // Final image, stats block, share button
 
     const resultsString = createResultsString(gameState);
-    console.log(resultsString);
     navigator.clipboard.writeText(resultsString);
 }
 
