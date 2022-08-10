@@ -49,9 +49,8 @@ const plantData = [
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/elephantsFootFinal/', 
       },
       {
-        
-        commonName: 'hoya hindu rope',
-        scientificName: 'carnosa compacta',
+        commonName: 'hindu rope plant',
+        scientificName: 'hoya carnosa compacta',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/hoyaHinduRopeFinal/', 
       },
       {
@@ -61,7 +60,7 @@ const plantData = [
       },
       {
         commonName: 'string of hearts',
-        scientificName: 'ceropegia',
+        scientificName: 'ceropegia woodii',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/stringOfHeartsFinal/', 
       },
       {
@@ -133,12 +132,12 @@ const plantData = [
       },
       {
         commonName: 'periwinkle',
-        scientificName: 'myrtle,vinca minor',
+        scientificName: 'vinca minor',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/vincaFinal/', 
       },
       {
         commonName: 'rio,rock trumpet',
-        scientificName: 'diplandenia,mandevilla',
+        scientificName: 'mandevilla',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rioFinal/', 
       },
       {
@@ -148,18 +147,17 @@ const plantData = [
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/widowsThrillFinal/', 
       },
       {
-        
         commonName: 'wax begonia',
-        scientificName: 'begonia x semperflorens-cultorum',
-        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/waxBegoniaFinal/', 
+        scientificName: 'begonia cucullata',
+        url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/waxBegoniaFinal/',
       },
       {
-        commonName: 'plumeria',
-        scientificName: 'frangipani',
+        commonName: 'plumeria,frangipani',
+        scientificName: 'plumeria',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/plumeriaFinal/', 
       },
       {
-        commonName: 'lotus,indian lotus,sacred lotus',
+        commonName: 'indian lotus',
         scientificName: 'nelumbo nucifera',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/lotusFinal/', 
       },
@@ -174,8 +172,8 @@ const plantData = [
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/rattlesnakeFinal/', 
       },
       {
-        commonName: 'swiss cheese plant,monstera',
-        scientificName: 'monstera deliciosa,split leaf philodendron',
+        commonName: 'monstera,swiss cheese plant',
+        scientificName: 'monstera deliciosa',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/monsteraFinal/', 
       },
       {
@@ -199,8 +197,7 @@ const plantData = [
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/ponytailPalmFinal/', 
       },
       {
-        
-        commonName: 'pothos',
+        commonName: "devil's ivy,pothos",
         scientificName: 'epipremnum aureum',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/pothosFinal/', 
       },
@@ -222,7 +219,7 @@ const plantData = [
       },
       {
         commonName: "elephant's ear",
-        scientificName: 'alocasia',
+        scientificName: 'colocasia',
         url: 'https://herble.s3.us-east-2.amazonaws.com/House+Plants/elephantEarsFinal/', 
       },
       {
