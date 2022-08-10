@@ -11,6 +11,8 @@ const IMAGE_BUTTONS_ARRAY = Array.from(IMAGE_BUTTONS);
 const RESULTS_MODAL_ID = 'resultsModal';
 const RESULTS_MODAL = initModal();
 
+const STATS_EL = document.getElementById('stats-block');
+
 const MAX_AUTOCOMPLETE = 5;
 
 const GAME_STATE_KEY = 'herble-state';
@@ -258,13 +260,63 @@ function refreshBoard(gameState) {
 }
 
 function finishGame(gameState) {
+    const localStats = loadLocalStats();
+    updateLocalStats(localStats, gameState);
+
+    // Populate modal
+    const statsElements = STATS_EL.querySelectorAll('.stats-value');
+
+    statsElements[0].textContent = localStats.streak;
+    statsElements[1].textContent = localStats.highestStreak;
+    statsElements[2].textContent = localStats.gamesPlayed;
+    statsElements[3].textContent = Math.floor(localStats.gamesSolved / localStats.gamesPlayed);
+
     // Pop up the modal
     showResults(gameState);
 
-    // Final image, stats block, share button
-
     // const resultsString = createResultsString(gameState);
     // navigator.clipboard.writeText(resultsString);
+}
+
+// {
+//     streak: NUMBER,
+//     highestStreak: NUMBER,
+//     gamesPlayed: NUMBER,
+//     gamesSolved: NUMBER,
+//     lastSolved: NUMBER
+// }
+
+function loadLocalStats() {
+    const statsString = localStorage.getItem(LOCAL_STATS_KEY);
+    if (statsString == null) {
+        return {
+            streak: 0,
+            highestStreak: 0,
+            gamesPlayed: 0,
+            gamesSolved: 0,
+            lastSolved: 0
+        };
+    } else {
+        return JSON.parse(statsString);
+    }
+}
+
+function updateLocalStats(localStats, gameState) {
+    const wonGame = gameState.status === GAME_STATUS_STRINGS[2];
+    localStats.gamesPlayed++;
+    if (wonGame) {
+        gamesSolved++;
+        if (gameState.gameNumber == localStats.lastSolved + 1) {
+            localStats.streak++;
+            localStats.highestStreak = Math.max(localStats.streak, localStats.highestStreak);
+        } else {
+            localStats.streak = 0;
+        }
+        localStats.lastSolved = gameState.gameNumber;
+    } else {
+        localStats.streak = 0;
+    }
+    localStorage.setItem(LOCAL_STATS_KEY, JSON.stringify(localStats));
 }
 
 function showResults(gameState) {
