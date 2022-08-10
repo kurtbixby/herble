@@ -3,6 +3,8 @@ import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
 const HERBLE_FORM = document.getElementById('herble-form');
 const HERBLE_INPUT = HERBLE_FORM.querySelector('#herble-search');
 const HERBLE_IMAGE = document.getElementById('herbleImage');
+const AUTO_COMPLETE_LIST = document.getElementById('auto-complete-list');
+
 const DAY_MILLISECONDS = 86400000;
 
 const IMAGE_BUTTONS = document.getElementsByClassName('image-button');
@@ -50,6 +52,7 @@ function initModal() {
 
 async function init() {
     HERBLE_FORM.addEventListener('submit', makeAGuess);
+    HERBLE_INPUT.addEventListener('input', showAutoComplete);
 
     IMAGE_BUTTONS_ARRAY.forEach(e => e.addEventListener('click', selectImagePicker));
 
@@ -217,15 +220,39 @@ function selectImagePicker(event) {
 }
 
 function showAutoComplete(event) {
-    const typed = HERBLE_FORM.textContent;
+    const typed = HERBLE_INPUT.value.trim();
+    if (typed == '') {
+        AUTO_COMPLETE_LIST.setAttribute('hidden', '');
+        HERBLE_INPUT.value = typed;
+        return;
+    }
+    AUTO_COMPLETE_LIST.innerHTML = '';
+
     const suggestions = autoCompleteSuggestions(typed);
 
     const separatedWords = [];
-    for (let i = 0; i < MAX_AUTOCOMPLETE; i++) {
-        separatedWords.push(highlightWord(suggestions[i]));
+    for (let i = 0; i < Math.min(suggestions.length, MAX_AUTOCOMPLETE); i++) {
+        separatedWords.push(highlightWord(suggestions[i], typed));
+    }
+
+    if (separatedWords.length < 1) {
+        return;
     }
 
     // Render separated words into the new autocomplete box
+    separatedWords.forEach(word => {
+        // create element for word
+        const wordElement = createAutoCompleteWordHTML(word);
+        // append to list
+        AUTO_COMPLETE_LIST.appendChild(wordElement);
+    })
+    AUTO_COMPLETE_LIST.removeAttribute('hidden');
+}
+
+function createAutoCompleteWordHTML(word) {
+    const element = document.createElement("li");
+    element.innerHTML = `${word.start}<mark>${word.highlight}</mark>${word.end}`;
+    return element;
 }
 
 function autoCompleteSuggestions(typed) {
@@ -244,11 +271,13 @@ function highlightWord(word, substr) {
 }
 
 function refreshBoard(gameState) {
-    console.debug('refreshBoard')
-    
+    const gameFinished = gameState.status != GAME_STATUS_STRINGS[0];
     // Reveal new image picker button
     // Set that image picker to active
-    for (var i = 0; i < Math.min(gameState.currentGuesses + 1, IMAGE_BUTTONS_ARRAY.length); i++) {
+
+    const buttonLimit = gameFinished ? IMAGE_BUTTONS_ARRAY.length : Math.min(gameState.currentGuesses + 1, IMAGE_BUTTONS_ARRAY.length);
+
+    for (var i = 0; i < buttonLimit; i++) {
         IMAGE_BUTTONS_ARRAY[i].removeAttribute('hidden');
         IMAGE_BUTTONS_ARRAY[i].removeAttribute('disabled');
     }
@@ -302,16 +331,20 @@ function loadLocalStats() {
 }
 
 function updateLocalStats(localStats, gameState) {
+    if (localStats.lastSolved == gameState.gameNumber) {
+        return;
+    }
+
     const wonGame = gameState.status === GAME_STATUS_STRINGS[2];
     localStats.gamesPlayed++;
     if (wonGame) {
-        gamesSolved++;
+        localStats.gamesSolved++;
         if (gameState.gameNumber == localStats.lastSolved + 1) {
             localStats.streak++;
-            localStats.highestStreak = Math.max(localStats.streak, localStats.highestStreak);
         } else {
-            localStats.streak = 0;
+            localStats.streak = 1;
         }
+        localStats.highestStreak = Math.max(localStats.streak, localStats.highestStreak);
         localStats.lastSolved = gameState.gameNumber;
     } else {
         localStats.streak = 0;
