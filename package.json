@@ -4,8 +4,8 @@
   "description": "A daily plant guessing game",
   "main": "server.js",
   "scripts": {
-    "watch": "tailwindcss -i ./src/styles.css -o ./css/styles.css --watch",
-    "build": "tailwindcss -i ./src/styles.css -o ./css/style.css",
+    "tailwind-watch": "tailwindcss -i ./src/styles.css -o ./css/styles.css --watch",
+    "tailwind-build": "tailwindcss -i ./src/styles.css -o ./css/style.css",
     "seeds": "node db/seeds/moreSeeds.js"
     
   },
