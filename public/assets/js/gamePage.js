@@ -152,7 +152,8 @@ function makeAGuess(event) {
         sendResult({number: GAME_STATE.gameNumber, success: true });
     }
 
-    GAME_STATE.currentPicture = Math.min(GAME_STATE.currentPicture + 1, GAME_MAX_GUESSES);
+    // IMAGE_BUTTONS_ARRAY[GAME_STATE.currentPicture - 1].removeAttribute('disabled');
+    GAME_STATE.currentPicture = Math.min(GAME_STATE.currentGuesses + 1, GAME_MAX_GUESSES);
     
     saveGameState(GAME_STATE);
     refreshBoard(GAME_STATE);
@@ -208,8 +209,9 @@ function refreshBoard(gameState) {
     
     // Reveal new image picker button
     // Set that image picker to active
-    for (var i = 0; i < Math.min(gameState.currentGuesses, IMAGE_BUTTONS_ARRAY.length); i++) {
+    for (var i = 0; i < Math.min(gameState.currentGuesses + 1, IMAGE_BUTTONS_ARRAY.length); i++) {
         IMAGE_BUTTONS_ARRAY[i].removeAttribute('hidden');
+        IMAGE_BUTTONS_ARRAY[i].removeAttribute('disabled');
     }
 
     IMAGE_BUTTONS_ARRAY[gameState.currentPicture - 1].setAttribute('disabled', '');
