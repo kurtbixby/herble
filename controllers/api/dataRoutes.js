@@ -13,7 +13,7 @@ const router = express.Router();
 // }
 router.get('/herble/:num', async (req, res) => {
     try {
-        const herble = await Herble.findByPk({
+        const herble = await Herble.findOne({
             where: {
                 number: req.params.num
             },
@@ -24,6 +24,7 @@ router.get('/herble/:num', async (req, res) => {
         });
         res.status(200).json(herble);
     } catch (err) {
+        console.error(err);
         res.status(500).json(err);
     }
 });
