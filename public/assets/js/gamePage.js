@@ -1,4 +1,4 @@
-import { getHerble, getPlants, sendGuess, sendResult } from "./requests.js";
+import { getHerble, getPlants, getStats, sendGuess, sendResult } from "./requests.js";
 
 const HERBLE_FORM = document.getElementById('herble-form');
 const HERBLE_INPUT = HERBLE_FORM.querySelector('#herble-search');
@@ -30,6 +30,16 @@ const dayOne = new Date(2022, 7, 9).getTime();
 
 const PLANTS = [];
 const GAME_STATE = {};
+
+function parseCookie(cookie) {
+    const parsed = {};
+    let kvs = cookie.split(';');
+    kvs.forEach(e => {
+        let [key, value] = e.trim().split('=');
+        parsed[key] = value;
+    });
+    return parsed;
+}
 
 function initModal() {
     const modalEl = document.getElementById(RESULTS_MODAL_ID);
@@ -63,6 +73,13 @@ async function init() {
     // Load the list of plants
     fetchPlantNames(PLANTS);
 
+    let parsedCookie = parseCookie(document.cookie);
+    if (parsedCookie.loggedIn == 'true') {
+        // load stats
+        const receivedStats = (await getStats());
+        // Merge stats
+        syncToRemoteStats(receivedStats);
+    }
     // Try to load stored game state
     await initializeGameState(GAME_STATE);
 
@@ -189,6 +206,8 @@ function makeAGuess(event) {
 
     // IMAGE_BUTTONS_ARRAY[gameState.currentPicture - 1].removeAttribute('disabled');
     gameState.currentPicture = Math.min(gameState.currentGuesses + 1, GAME_MAX_GUESSES);
+    
+    HERBLE_INPUT.value = '';
     
     saveGameState(gameState);
     refreshBoard(gameState);
@@ -359,6 +378,20 @@ function loadLocalStats() {
     }
 }
 
+function syncToRemoteStats(remoteStats) {
+    console.debug(remoteStats);
+    const localStats = {
+        streak: remoteStats.streak,
+        highestStreak: remoteStats.highestStreak,
+        gamesPlayed: remoteStats.gamesPlayed,
+        gamesSolved: remoteStats.gamesSolved,
+    };
+    localStats.lastSolved = remoteStats.lastSolved ? remoteStats.lastSolved : 0;
+
+    console.log(localStats);
+    saveStats(localStats);
+}
+
 function updateLocalStats(localStats, gameState) {
     if (localStats.lastSolved == gameState.gameNumber) {
         return;
@@ -378,7 +411,11 @@ function updateLocalStats(localStats, gameState) {
     } else {
         localStats.streak = 0;
     }
-    localStorage.setItem(LOCAL_STATS_KEY, JSON.stringify(localStats));
+    saveStats(localStats);
+}
+
+function saveStats(stats) {
+    localStorage.setItem(LOCAL_STATS_KEY, JSON.stringify(stats));
 }
 
 function showResults(gameState) {

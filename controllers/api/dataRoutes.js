@@ -38,17 +38,17 @@ router.get('/herble/:num', async (req, res) => {
 //     success: bool,
 // }
 router.post('/herble', sessionCheck, async (req, res) => {
-    // if (!req.session) {
-    //     res.status(401);
-    //     return;
-    // }
+    if (!req.session.loggedIn) {
+        res.status(401);
+        return;
+    }
     try {
         const stats = await UserStats.findOne({
             // The following line is the line we probably want in the final version
-            // where: { userId: req.session.user_id }
+            where: { userId: req.session.user_id }
 
             // This is just for testing purposes
-            where: { userId: req.body.id }
+            // where: { userId: req.body.id }
         });
 
         if (!stats) {
@@ -148,6 +148,53 @@ router.post('/users', async (req, res) => {
         res.status(200).json(userData);
     } catch (err) {
         console.error(err);
+        res.status(500).json(err);
+    }
+});
+
+router.get('/stats', sessionCheck, async (req, res) => {
+    if (!req.session.loggedIn) {
+        res.status(401);
+        return;
+    }
+    try {
+        // OPTIONAL TO DO
+        // Check the cookie and only send back email if the account is the user's
+        const user = await User.findOne({
+            where: {
+                id: req.session.user
+            },
+            attributes: {
+                exclude: ['email', 'password']
+            },
+            include: {
+                model: UserStats,
+                attributes: {
+                    exclude: ['id', 'userId']
+                }
+            },
+        });
+
+        if (!user) {
+            res.status(400).json({ message: 'Incorrect user id'});
+            return;
+        }
+
+        const statsResponse = {
+            streak: user.userStats.streak,
+            highestStreak: user.userStats.highestStreak,
+            gamesPlayed: user.userStats.gamesPlayed,
+            gamesSolved: user.userStats.gamesSolved,
+        };
+
+        if (user.userStats.lastSolved != null) {
+            const herble = await Herble.findByPk(user.userStats.lastSolved);
+
+            statsResponse.lastSolved = herble.number;
+        }
+
+        res.status(200).json(statsResponse);
+    } catch (err) {
         res.status(500).json(err);
     }
 });

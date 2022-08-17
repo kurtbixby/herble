@@ -55,7 +55,7 @@ router.get('/logout', async (req, res) => {
               if (err) next(err);
               req.session.regenerate((err) => {
                   if (err) next(err)
-                  res.status(200).redirect('/');
+                  res.status(200).cookie('loggedIn', false).redirect('/');
               });
           })
       } else {

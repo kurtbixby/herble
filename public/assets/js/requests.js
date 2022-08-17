@@ -1,4 +1,4 @@
-export { getHerble, getPlants, sendGuess, sendResult };
+export { getHerble, getPlants, getStats, sendGuess, sendResult };
 
 async function sendGuess(herbleGuess) {
     const url = '/api/herble/data';
@@ -18,6 +18,7 @@ async function sendGuess(herbleGuess) {
 }
 
 async function sendResult(herbleResult) {
+    console.info('sending Result');
     const url = '/api/herble/';
 
     try {
@@ -56,7 +57,16 @@ async function loginUser() {
 }
 
 async function getStats() {
+    const fetchUrl = '/api/stats'
+    try {
+        const stats = await (await fetch(fetchUrl)).json();
 
+        console.log(stats);
+
+        return stats;
+    } catch (err) {
+
+    }
 }
 
 async function getPlants() {

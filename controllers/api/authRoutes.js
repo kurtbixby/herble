@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
             
             req.session.save((err) => {
                 if (err) next(err);
-                res.status(200).redirect('/');
+                res.status(200).cookie('loggedIn', true).redirect('/');
             });
         });
     } catch (err) {
