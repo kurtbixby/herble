@@ -4,10 +4,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Herble</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     <link rel="icon" type="image/x-icon" href="./assets/imgs/favicon-16x16.png">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link type="text/css" href="/assets/css/styles.css" rel="stylesheet">
+    <link type="text/tailwindcss" href="/assets/css/tailwind.css" rel="stylesheet">
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .new-image-button {
+                @apply text-stone-900;
+                @apply object-center;
+                @apply p-2.5;
+                @apply ml-2;
+                @apply text-sm;
+                @apply font-medium;
+                @apply bg-emerald-200;
+                @apply rounded-lg;
+                @apply border;
+                @apply border-orange-700;
+                @apply focus:ring-4;
+                @apply focus:outline-none;
+                @apply focus:ring-orange-300;
+                @apply dark:bg-neutral-800;
+                @apply dark:focus:ring-orange-800;
+                @apply dark:text-slate-400;
+                @apply disabled:opacity-25;
+            }
+        }
+    </style>
+
 </head>
 <header class="bg-emerald-200 rounded-lg dark dark:bg-neutral-800 dark:text-slate-400">
     <nav class="bg-emerald-200 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-neutral-800 dark:dark:text-slate-400">

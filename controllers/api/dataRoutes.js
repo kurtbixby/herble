@@ -108,7 +108,7 @@ router.post('/herble/data', sessionCheck, async (req, res) => {
             return;
         }
 
-        const user = await User.findByPk(req.sessionID.user_id);
+        const user = await User.findByPk(req.session.user_id);
 
         if (!user) {
             res.status(400).json({ message: 'No user found with this id'});
